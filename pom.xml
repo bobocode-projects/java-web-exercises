@@ -10,6 +10,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>java-web-course-util</module>
+        <module>0-0-intro</module>
+        <module>1-0-networking-and-http</module>
+        <module>2-0-servlet-api</module>
+        <module>3-0-spring-mvc</module>
+        <module>4-0-spring-boot-rest-api</module>
+        <module>5-0-spring-boot-rest-client</module>
     </modules>
 
     <properties>
