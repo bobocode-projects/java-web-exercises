@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>0-0-1-weclome-to-java-web-course</artifactId>
+    <artifactId>0-0-1-welcome-to-java-web-course</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
