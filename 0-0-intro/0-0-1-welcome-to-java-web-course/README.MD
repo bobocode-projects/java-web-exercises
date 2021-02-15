@@ -10,8 +10,8 @@ This is a welcome test project to check if everything works okay on your compute
 
 * Just **clone the repository** to your computer
 * Open project in your IDE and **configure JDK 11** for the project
-* Open terminal and run a command `./mvnw clean package`
-* Open class `WelcomeToJavaWebCourseApp` and run `main()`
+* Open terminal and **run a command** `./mvnw clean package`
+* Open class `WelcomeToJavaWebCourseApp` and **run** `main()`
 * [Click here 🔗](`http://localhost:8080/welcome`)
 
 ### You'll see if it works 😉
