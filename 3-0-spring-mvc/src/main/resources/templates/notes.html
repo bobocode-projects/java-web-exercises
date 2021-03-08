@@ -31,8 +31,8 @@
         </form>
     </div>
 
+    <div th:if="${notes.isEmpty()}">Here is no notes yet...</div>
     <div class="note" th:each="note : ${notes}">
-        <div th:text="There is no notes here yet..." th:if="${notes.size() == 0}"></div>
         <div class="title_note" th:text="${note.title}">The title</div>
         <div class="text_note" th:text="${note.text}">The text of very long story, or just shopping list</div>
         <div class="date_note" th:text="${note.creationDate}">23.04.2021</div>
