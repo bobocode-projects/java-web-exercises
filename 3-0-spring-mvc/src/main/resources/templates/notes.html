@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/css/style.css">
+    <script th:src="@{/js/jquery-3.5.1.js}" src="../static/js/jquery-3.5.1.js"></script>
+    <title>Notes</title>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <h1 class="title">My notes</h1>
+        <div class="show">
+            <img th:src="@{/img/cross-in-square.png}" src="../static/img/cross-in-square.png" alt=" ">
+            <div>Add note</div>
+        </div>
+    </header>
+
+    <div class="form_block" th:object="${newNote}">
+        <form action="#" th:action="@{/notes}" th:method="post">
+            <label for="title_input">Title</label>
+            <input id="title_input" type="text" th:field="*{title}">
+            <label for="text_input" id="text_label">Your note</label>
+            <textarea id="text_input" th:field="*{text}" rows="5"></textarea>
+            <input type="submit" value="Add" class="input_submit">
+        </form>
+    </div>
+
+    <div class="note" th:each="note : ${notes}">
+        <div th:text="There is no notes here yet..." th:if="${notes.size() == 0}"></div>
+        <div class="title_note" th:text="${note.title}">The title</div>
+        <div class="text_note" th:text="${note.text}">The text of very long story, or just shopping list</div>
+        <div class="date_note" th:text="${note.creationDate}">23.04.2021</div>
+    </div>
+
+</div>
+<script th:src="@{/js/script.js}" src="../static/js/script.js"></script>
+</body>
+</html>
