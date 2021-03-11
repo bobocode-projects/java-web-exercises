@@ -19,10 +19,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <prerequisites>
-        <maven>2.2.1</maven>
-    </prerequisites>
-
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -34,12 +30,6 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.18.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.8.8</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -57,58 +47,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>WelcomeServletTest.java</exclude>
+                        <exclude>**/WelcomeServletTest.java</exclude>
                     </excludes>
-                </configuration>
-            </plugin>
-            <!-- starts tomcat before test execution and stops after-->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <url>http://localhost:8080/</url>
-                    <server>localhost</server>
-                    <fork>true</fork>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>run-tomcat</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>run-war-only</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-tomcat</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>shutdown</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-            </plugin>
-            <!-- runs tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <includes>
-                        <include>WelcomeServletTest.java</include>
-                    </includes>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -13,7 +13,7 @@ public class WelcomeServletTest {
 
     @Test
     void contextResponseCodeIsOk() throws IOException {
-        HttpURLConnection connection = servletConnection.getHttpURLConnection("http://localhost:8080/");
+        HttpURLConnection connection = servletConnection.getHttpURLConnectionGet("http://localhost:8080/");
         int code = connection.getResponseCode();
         assertThat(code).isEqualTo(HttpURLConnection.HTTP_OK);
     }
@@ -27,7 +27,7 @@ public class WelcomeServletTest {
     @Test
     void servletResponseCodeIsOk() throws IOException {
         HttpURLConnection connection = servletConnection
-                .getHttpURLConnection("http://localhost:8080/hello-servlet");
+                .getHttpURLConnectionGet("http://localhost:8080/hello-servlet");
         int code = connection.getResponseCode();
         assertThat(code).isEqualTo(HttpURLConnection.HTTP_OK);
     }

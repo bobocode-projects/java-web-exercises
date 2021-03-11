@@ -10,7 +10,7 @@ public class HttpServletConnection {
     private static final String USER_AGENT = "Mozilla/5.0";
 
     public StringBuffer sendGET(String url) throws IOException {
-        HttpURLConnection connection = getHttpURLConnection(url);
+        HttpURLConnection connection = getHttpURLConnectionGet(url);
         int responseCode = connection.getResponseCode();
         StringBuffer response = null;
         if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -27,7 +27,7 @@ public class HttpServletConnection {
         return response;
     }
 
-    public HttpURLConnection getHttpURLConnection(String url) throws IOException {
+    public HttpURLConnection getHttpURLConnectionGet(String url) throws IOException {
         URL obj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
         connection.setRequestMethod("GET");
