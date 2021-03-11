@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>2-0-servlet-api</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>hello-servlet-api</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
