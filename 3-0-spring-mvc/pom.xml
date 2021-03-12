@@ -10,10 +10,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>3-0-spring-mvc</artifactId>
+    <packaging>pom</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
+        <module>3-0-1-hello-spring-mvc</module>
+    </modules>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
 </project>
