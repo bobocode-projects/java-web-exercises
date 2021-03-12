@@ -42,6 +42,7 @@ public class RestControllerTest {
     @Test
     void returnValidDataWhenGetMethodCalled() throws Exception {
         fillNotes(new Note("title 1", "text 1"), new Note("title 2", "text 2"));
+
         mockMvc.perform(get("/api/notes"))
                 .andExpect(jsonPath("$[0].title", is("title 1")))
                 .andExpect(jsonPath("$[0].text", is("text 1")))
@@ -59,7 +60,7 @@ public class RestControllerTest {
     }
 
     @Test
-    void statusIs400WhenRequiredFieldsAreEmpty() throws Exception {
+    void statusIs4xxWhenRequiredFieldsAreEmpty() throws Exception {
         mockMvc.perform(post("/api/notes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(new Note()))
@@ -78,7 +79,6 @@ public class RestControllerTest {
         );
 
         assertFalse(notes.getAll().isEmpty());
-        assertEquals(notes.getAll().size(), 1);
     }
 
     @SneakyThrows
@@ -91,5 +91,6 @@ public class RestControllerTest {
             this.notes.add(note);
         }
     }
+
 }
 

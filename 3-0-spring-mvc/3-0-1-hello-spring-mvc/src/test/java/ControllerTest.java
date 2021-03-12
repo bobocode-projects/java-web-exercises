@@ -1,7 +1,6 @@
 import com.bobocode.mvc.HelloSpringMvcApp;
 import com.bobocode.mvc.model.Note;
 import com.bobocode.mvc.storage.Notes;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -55,6 +54,30 @@ public class ControllerTest {
         );
 
         assertFalse(notes.getAll().isEmpty());
+    }
+
+    @Test
+    void noteHasIdWhenSaveItToStorageAfterPost() throws Exception {
+        mockMvc.perform(post("/notes")
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .content(
+                        String.valueOf(model().attribute("newNote", new Note("title", "text")))
+                )
+        );
+
+        assertNotNull(notes.getAll().get(0).getId());
+    }
+
+    @Test
+    void noteHasDateWhenSaveItToStorageAfterPost() throws Exception {
+        mockMvc.perform(post("/notes")
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .content(
+                        String.valueOf(model().attribute("newNote", new Note("title", "text")))
+                )
+        );
+
+        assertNotNull(notes.getAll().get(0).getCreationDate());
     }
 
     private void fillNotes(Note... notes) {
