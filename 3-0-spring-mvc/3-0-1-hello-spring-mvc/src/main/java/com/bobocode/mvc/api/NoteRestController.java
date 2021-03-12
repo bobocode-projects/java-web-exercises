@@ -1,27 +1,12 @@
 package com.bobocode.mvc.api;
 
-import com.bobocode.mvc.model.Note;
-import com.bobocode.mvc.storage.Notes;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
-
-@RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/notes")
 public class NoteRestController {
 
-    private final Notes notes;
+//    TODO Create method to get all notes from storage and pass it to the view
 
-    @GetMapping
-    public List<Note> getNotes() {
-        return notes.getAll();
-    }
+//    TODO Create method to handle the post request and save new note to the storage
 
-    @PostMapping
-    public void addNote(@RequestBody Note note) {
-        notes.add(note);
-    }
 }
