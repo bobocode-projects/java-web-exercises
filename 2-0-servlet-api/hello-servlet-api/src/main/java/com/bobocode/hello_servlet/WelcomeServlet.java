@@ -1,4 +1,4 @@
-package com.bobocode.welcome_servlet_web;
+package com.bobocode.hello_servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * To create a servlet you have to extend this class from {@link HttpServlet}.
- * Also add annotation {@link WebServlet} with parameter "/hello-servlet" to map a path.
+ * To create a servlet you have to extend your class from {@link HttpServlet}.
+ * Also add annotation {@link WebServlet} with parameter to map a path for URL.
  */
-@WebServlet("/hello-servlet") //todo: initialize the class as a servlet
+@WebServlet("/")
 public class WelcomeServlet extends HttpServlet {
 
     /**
      * This method is overridden from {@link HttpServlet} class.
-     * It called by the server (container) to allow a servlet to handle a GET request.
+     * It called by the server (container) to allow servlets to handle GET requests.
      *
      * @param request an {@link HttpServletRequest} object that contains the request
      *                the client has made of the servlet.
@@ -29,16 +29,12 @@ public class WelcomeServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
-        String parameter = request.getParameter("name");
         out.println("<html><body align=\"center\">");
-        if (parameter == null) {
-            out.println("<h1>" + "Good job! This page is a response of the servlet." + "</h1>");
-            out.println("<h2>" + "You should add your name as a parameter in the URL." + "<br>");
-            out.println("Just add <code><em>?name=YourName</em></code> to the end of the URL" + "</h2>");
-        } else {
-            out.println("<h1>" + "Awesome " + parameter + "! "
-                    + "You've just passed your name to the servlet!" + "</h1>");
-        }
+            out.println("<img src=\"logo_white.svg\" alt=\"Bobocode\" width=\"500\">");
+            out.println("<h1>" + "Good job! This page is a response of <code>WelcomeServlet</code> object." + "</h1>");
+            out.println("<h2>" + "You should create your own class <code>DateServlet</code> which returns " +
+                    "current date as a response on <code>/date</code> request.<br> Use <code>LocalDate.now()</code> " +
+                    "to get current date." + "</h2>");
         out.println("</body></html>");
     }
 }
