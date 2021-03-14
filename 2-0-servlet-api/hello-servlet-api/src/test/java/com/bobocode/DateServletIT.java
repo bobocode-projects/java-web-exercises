@@ -8,7 +8,9 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
+/**
+ * These tests are optional and must run after starting and deploying.
+*/
 public class DateServletIT {
     HttpServletConnection servletConnection = new HttpServletConnection();
 
