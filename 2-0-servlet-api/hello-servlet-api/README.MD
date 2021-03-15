@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/logo_transparent_background.png" height=50/>Welcome Servlet
+# <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/logo_transparent_background.png" height=50/>Welcome Date Servlet
 Your first acquaintance with Servlets, JSP and servlet Container 👀
 
 [Servlets are the Java platform technology of choice for extending and enhancing Web servers.](https://www.oracle.com/java/technologies/servlet-technology.html)
@@ -28,12 +28,16 @@ You're supposed to be familiar with [Java Fundamentals](https://github.com/boboc
     - Open Eclipse Java EE (Enterprise edition ) environment. Click on Servers tab at bottom. Click on No servers are available.
     - A dialog box will appear. Select Tomcat 9.0 server folder. Click Next.
     - Browse to Apache Tomcat 9.0 folder select it. Click Finish.
-* **complete TODO section** in `WelcomeServlet` class ✅
+* **create a new Servlet** with a name `DateServlet` ✅
+  1. Create a new class `DateServlet` in the same package
+  2. Extend the class from `HttpServlet`
+  3. Annotate the class as `@WebServlet` with parameter `"/date""` to create a path to the servlet.
+  4. Override `doGet` method to return present date in the response using `LocalDate.now()`.
+* **run `DateServletTest`** to check your code ✅    
 * **run configured server** ✅
-  - If everything is configured properly, and the server is run index.jsp will appear on [http://localhost:8080/](http://localhost:8080/)
+  - If everything is configured properly, the server should run `WelcomeServlet` on [http://localhost:8080/](http://localhost:8080/)
 * **run `WelcomeServletTest`** while the server is running to check all the endpoints ✅ 
-* **send request to the servlet** using [http://localhost:8080/welcome-servlet](http://localhost:8080/welcome-servlet) URL ✅
-* **pass your name** as property of servlets' URL ✅
+* **send request to `DateServlet`** using [http://localhost:8080/date](http://localhost:8080/date) URL in order to get present date ✅
 
 ### Related Materials ℹ️
 todo
