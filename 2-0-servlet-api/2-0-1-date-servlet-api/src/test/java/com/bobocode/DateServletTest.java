@@ -17,10 +17,10 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Set;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -66,11 +66,11 @@ public class DateServletTest {
         Set<Class<? extends HttpServlet>> httpServlets =
                 reflections.getSubTypesOf(HttpServlet.class);
 
-        httpServlets.stream()
+        Optional<String> anyDateHttpServlet = httpServlets.stream()
                 .map(Class::getSimpleName)
                 .filter(servlet -> servlet.equals(DATE_SERVLET))
-                .findAny()
-                .orElseThrow();
+                .findAny();
+        assertThat(anyDateHttpServlet).isNotEmpty();
     }
 
     @Test
@@ -78,15 +78,23 @@ public class DateServletTest {
     void dateServletIsMarkedAsWebServlet() {
         Set<Class<?>> servlets =
                 reflections.getTypesAnnotatedWith(WebServlet.class);
-        servlets.stream()
+        Optional<String> anyMarkedDateServlet = servlets.stream()
                 .map(Class::getSimpleName)
                 .filter(servlet -> servlet.equals(DATE_SERVLET))
-                .findAny()
-                .orElseThrow();
+                .findAny();
+        assertThat(anyMarkedDateServlet).isNotEmpty();
     }
 
     @Test
     @Order(4)
+    void dateServletIsMarkedWithProperPath() throws ClassNotFoundException {
+        String[] value = Class.forName(SERVLET_PACKAGE + "." + DATE_SERVLET)
+                .getAnnotation(WebServlet.class).value();
+        assertThat(value).contains("/date");
+    }
+
+    @Test
+    @Order(5)
     void dateServletContentTypeIsProper() throws IllegalAccessException,
             InvocationTargetException, NoSuchMethodException, IOException {
         Method doGetMethod = getDoGetMethod();
@@ -100,16 +108,17 @@ public class DateServletTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void dateServletReturnsDateInResponse() throws IOException, NoSuchMethodException, InvocationTargetException,
             IllegalAccessException {
+        Method doGetMethod = getDoGetMethod();
+
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         when(response.getWriter()).thenReturn(printWriter);
-        Method doGetMethod = getDoGetMethod();
 
         doGetMethod.invoke(dateServletObject, request, response);
-        assertThat(stringWriter.getBuffer().toString().contains(LocalDate.now().toString())).isTrue();
+        assertThat(stringWriter.getBuffer().toString()).contains(LocalDate.now().toString());
     }
 
     private Method getDoGetMethod() throws NoSuchMethodException {
