@@ -1,4 +1,4 @@
-package com.bobocode.hello_servlet;
+package com.bobocode.servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +33,7 @@ public class WelcomeServlet extends HttpServlet {
             out.println("<img src=\"logo_white.svg\" alt=\"Bobocode\" width=\"500\">");
             out.println("<h1>" + "Good job! This page is a response of <code>WelcomeServlet</code> object." + "</h1>");
             out.println("<h2>" + "You should create your own class <code>DateServlet</code> which returns " +
-                    "current date as a response on <code>/date</code> request.<br> Use <code>LocalDate.now()</code> " +
+                    "current date as a response on <code>/date</code> path.<br> Use <code>LocalDate.now()</code> " +
                     "to get current date." + "</h2>");
         out.println("</body></html>");
     }

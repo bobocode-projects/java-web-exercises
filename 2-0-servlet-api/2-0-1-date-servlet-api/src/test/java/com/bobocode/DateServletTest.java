@@ -41,7 +41,7 @@ public class DateServletTest {
     private Object dateServletObject;
     private Class<?> dateServletClass;
 
-    public static final String SERVLET_PACKAGE = "com.bobocode.hello_servlet";
+    public static final String SERVLET_PACKAGE = "com.bobocode.servlet";
     public static final String DATE_SERVLET = "DateServlet";
     Reflections reflections;
 
@@ -55,13 +55,13 @@ public class DateServletTest {
 
     @Test
     @Order(1)
-    void dateServletClassExisting() throws ClassNotFoundException {
+    void dateServletClassExists() throws ClassNotFoundException {
         Class.forName(SERVLET_PACKAGE + "." + DATE_SERVLET);
     }
 
     @Test
     @Order(2)
-    void dateServletIsHttpServlet() {
+    void dateServletExtendsHttpServlet() {
 
         Set<Class<? extends HttpServlet>> httpServlets =
                 reflections.getSubTypesOf(HttpServlet.class);
@@ -75,7 +75,7 @@ public class DateServletTest {
 
     @Test
     @Order(3)
-    void dateServletIsAnnotated() {
+    void dateServletIsMarkedAsWebServlet() {
         Set<Class<?>> servlets =
                 reflections.getTypesAnnotatedWith(WebServlet.class);
         servlets.stream()
@@ -113,8 +113,7 @@ public class DateServletTest {
     }
 
     private Method getDoGetMethod() throws NoSuchMethodException {
-        Method doGetMethod = dateServletClass
+        return dateServletClass
                 .getMethod("doGet", HttpServletRequest.class, HttpServletResponse.class);
-        return doGetMethod;
     }
 }

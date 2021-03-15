@@ -12,7 +12,7 @@
     <artifactId>2-0-servlet-api</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>hello-servlet-api</module>
+        <module>2-0-1-date-servlet-api</module>
     </modules>
 
     <properties>

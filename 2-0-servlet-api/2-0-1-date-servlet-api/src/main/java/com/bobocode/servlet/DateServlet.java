@@ -1,4 +1,4 @@
-package com.bobocode.hello_servlet;
+package com.bobocode.servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +15,8 @@ public class DateServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<html><body align=\"center\">");
         LocalDate date = LocalDate.now();
-        out.println("<h1>" + date + "</h1>");
-        out.println("</body></html>");
+        out.println(date);
         out.close();
     }
 }
