@@ -36,7 +36,6 @@ You're supposed to be familiar with [Java Fundamentals](https://github.com/boboc
 * **run `DateServletTest`** to check your code ✅    
 * **run configured server** ✅
   - If everything is configured properly, the server should run `WelcomeServlet` on [http://localhost:8080/](http://localhost:8080/)
-* **run `WelcomeServletTest`** while the server is running to check all the endpoints ✅ 
 * **send request to `DateServlet`** using [http://localhost:8080/date](http://localhost:8080/date) URL in order to get present date ✅
 
 ### Related Materials ℹ️
