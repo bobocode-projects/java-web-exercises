@@ -14,8 +14,8 @@
 <div class="wrapper">
     <header>
         <h1 class="title">My notes</h1>
-        <div class="form_block" th:object="${newNote}">
-            <form action="#" th:action="@{/notes}" th:method="post">
+        <div class="form_block">
+            <form action="#" th:action="@{/notes}" th:method="post" th:object="${note}">
                 <label for="title_input">Title</label>
                 <input id="title_input" type="text" placeholder="Enter title" required th:field="*{title}">
                 <label for="text_input" id="text_label">Your note</label>
