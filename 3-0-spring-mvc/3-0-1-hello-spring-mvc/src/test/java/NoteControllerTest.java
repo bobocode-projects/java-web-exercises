@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = HelloSpringMvcApp.class)
 @AutoConfigureMockMvc
-public class ControllerTest {
+public class NoteControllerTest {
 
     @Autowired
     private Notes notes;
