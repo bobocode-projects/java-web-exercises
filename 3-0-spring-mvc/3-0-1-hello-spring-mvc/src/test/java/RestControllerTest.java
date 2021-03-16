@@ -3,14 +3,14 @@ import com.bobocode.mvc.model.Note;
 import com.bobocode.mvc.storage.Notes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,30 +30,31 @@ public class RestControllerTest {
 
     @Test
     void getAll() throws Exception {
-        fillNotes(new Note("title 1", "text 1"), new Note("title 2", "text 2"));
+        notes.add(new Note("Title 1", "Text 1"));
 
         mockMvc.perform(get("/api/notes"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].title", is("title 1")))
-                .andExpect(jsonPath("$[0].text", is("text 1")))
-                .andExpect(jsonPath("$[1].title", is("title 2")))
-                .andExpect(jsonPath("$[1].text", is("text 2")));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+
+        int lastElementIndex = notes.getAll().size() - 1;
+
+        assertEquals("Title 1", notes.getAll().get(lastElementIndex).getTitle());
+        assertEquals("Text 1", notes.getAll().get(lastElementIndex).getText());
     }
 
     @Test
     void addNote() throws Exception {
-        Note note = new Note("Note", "Note text");
-
-        assertTrue(notes.getAll().isEmpty());
+        Note note = new Note("Title 2", "Title 2");
         mockMvc.perform(post("/api/notes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(note))
         )
                 .andExpect(status().isOk());
 
-        assertEquals(note.getTitle(), notes.getAll().get(0).getTitle());
-        assertEquals(note.getText(), notes.getAll().get(0).getText());
+        int lastElementIndex = notes.getAll().size() - 1;
+
+        assertEquals("Title 2", notes.getAll().get(lastElementIndex).getTitle());
+        assertEquals("Title 2", notes.getAll().get(lastElementIndex).getText());
     }
 
     @Test
@@ -69,12 +70,5 @@ public class RestControllerTest {
     private String asJsonString(Object object) {
         return new ObjectMapper().writeValueAsString(object);
     }
-
-    private void fillNotes(Note... notes) {
-        for (Note note : notes) {
-            this.notes.add(note);
-        }
-    }
-
 }
 
