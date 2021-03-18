@@ -95,20 +95,6 @@ public class DateServletTest {
 
     @Test
     @Order(5)
-    void dateServletContentTypeIsProper() throws IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException, IOException {
-        Method doGetMethod = getDoGetMethod();
-
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(stringWriter);
-        when(response.getWriter()).thenReturn(printWriter);
-
-        doGetMethod.invoke(dateServletObject, request, response);
-        verify(response).setContentType("text/html");
-    }
-
-    @Test
-    @Order(6)
     void dateServletReturnsDateInResponse() throws IOException, NoSuchMethodException, InvocationTargetException,
             IllegalAccessException {
         Method doGetMethod = getDoGetMethod();
