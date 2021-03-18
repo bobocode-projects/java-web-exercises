@@ -11,9 +11,4 @@
 
     <artifactId>5-0-spring-boot-rest-client</artifactId>
 
-    <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
-    </properties>
-
 </project>
