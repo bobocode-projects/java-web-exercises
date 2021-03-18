@@ -14,22 +14,24 @@
 <div class="wrapper">
     <header>
         <h1 class="title">My notes</h1>
-        <div class="form_block" th:object="${newNote}">
-            <form action="#" th:action="@{/notes}" th:method="post">
+        <div class="form_block">
+
+            <form action="#" th:action="@{/notes}" th:method="post" th:object="${note}">
                 <label for="title_input">Title</label>
                 <input id="title_input" type="text" placeholder="Enter title" required th:field="*{title}">
                 <label for="text_input" id="text_label">Your note</label>
-                <textarea id="text_input" placeholder="Your text" required th:field="*{text}" rows="1"></textarea>
+                <textarea id="text_input" placeholder="Your text" required rows="1" th:field="*{text}"></textarea>
                 <input type="submit" value="Add" class="input_submit">
             </form>
+
         </div>
     </header>
 
-    <div th:if="${notes.isEmpty()}">Here is no notes yet...</div>
-    <div class="note" th:each="note : ${notes}">
-        <div class="title_note" th:text="${note.title}">The title</div>
-        <div class="text_note" th:text="${note.text}">The text of very long story, or just shopping list</div>
-        <div class="date_note" th:text="${note.creationDate}">23.04.2021</div>
+    <div th:if="${noteList.isEmpty()}">Here is no notes yet...</div>
+    <div class="note" th:each="theNote : ${noteList}">
+        <div class="title_note" th:text="${theNote.title}">The title</div>
+        <div class="text_note" th:text="${theNote.text}">The text of very long story, or just shopping list</div>
+        <div class="date_note" th:text="${theNote.creationDate}">23.04.2021</div>
     </div>
 </div>
 
