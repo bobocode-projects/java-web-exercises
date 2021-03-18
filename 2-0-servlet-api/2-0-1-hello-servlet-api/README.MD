@@ -1,18 +1,16 @@
-# <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/logo_transparent_background.png" height=50/>Welcome Date Servlet
-Your first acquaintance with Servlets, JSP and servlet Container 👀
-
-[Servlets are the Java platform technology of choice for extending and enhancing Web servers.](https://www.oracle.com/java/technologies/servlet-technology.html)
+# <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/logo_transparent_background.png" height=50/>Hello Servlet API
+Start learning Servlet API – the foundation of Java web applications 💪
 
 ### Pre-conditions ❗
-You're supposed to be familiar with [Java Fundamentals](https://github.com/bobocode-projects/java-fundamentals-course)
+You're supposed to be familiar with [Java Fundamentals](https://github.com/bobocode-projects/java-fundamentals-course#welcome-to-the-java-fundamentals-course)
 
 ### Objectives
-* **install** [Apache Tomcat Container](https://tomcat.apache.org/download-90.cgi) if you didn't ✅
+* **install** [Apache Tomcat Container](https://tomcat.apache.org/download-90.cgi) locally (if you don't have it yet) ✅
   
-  -*Servlets don’t have any main() method. Instead, are used Containers to control Servlets.
+    *Servlets don’t have any main() method. Instead, are used Containers to control Servlets.
     Containers are other Java applications such as Tomcat, GlassFish or Jetty. You have to install one of it if you didn't.
     We suggest to use Tomcat as more lightweight and easier in configuration.*
-* ⚙ **configure a Container** depending on your environment ✅
+* ⚙ **configure a Container** depending on your IDE ✅
   - [IntelliJ IDEA:](https://www.jetbrains.com/help/idea/run-debug-configuration-tomcat-server.html)
     1. Create a new server configuration:
       
@@ -22,7 +20,7 @@ You're supposed to be familiar with [Java Fundamentals](https://github.com/boboc
         **Server** tab ▶ **Configure** ▶ (➕)**Add Application Server** ▶ Add a path to folder with Tomcat
     3. Deploy welcome-servlet application into Container in **Run/Debug Configurations**:
     
-        **Deployment** tab ▶ (➕)Artifact ▶ `welcome-servlet:war exploded` ▶ ❗ Clear **Application Context** field
+        **Deployment** tab ▶ (➕)Artifact ▶ `2-0-1-hello-servlet-api:war exploded` ▶ ❗ Clear **Application Context** field
       
   - Eclipse
     - Open Eclipse Java EE (Enterprise edition ) environment. Click on Servers tab at bottom. Click on No servers are available.
