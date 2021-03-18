@@ -33,8 +33,8 @@ public class NoteControllerTest {
         mockMvc.perform(get("/notes"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(model().attributeExists("notes"))
-                .andExpect(model().attribute("notes", notes.getAll()));
+                .andExpect(model().attributeExists("noteList"))
+                .andExpect(model().attribute("noteList", notes.getAll()));
     }
 
     @Test

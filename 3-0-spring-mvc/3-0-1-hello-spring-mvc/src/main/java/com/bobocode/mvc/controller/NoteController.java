@@ -18,6 +18,16 @@ public class NoteController {
 
     private final Notes notes;
 
+    @ModelAttribute
+    private List<Note> noteListAttr() {
+        return notes.getAll();
+    }
+
+    @ModelAttribute
+    private Note noteAttr() {
+        return new Note();
+    }
+
     @GetMapping
     public String getNotes() {
         return "notes";
@@ -27,15 +37,5 @@ public class NoteController {
     public String addNote(Note note) {
         notes.add(note);
         return "redirect:/notes";
-    }
-
-    @ModelAttribute("note")
-    private Note getNoteAttr() {
-        return new Note();
-    }
-
-    @ModelAttribute("notes")
-    private List<Note> getNotesAttr() {
-        return notes.getAll();
     }
 }
