@@ -15,10 +15,6 @@
         <module>2-0-1-date-servlet-api</module>
     </modules>
 
-    <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
-    </properties>
 
     <dependencies>
         <dependency>
