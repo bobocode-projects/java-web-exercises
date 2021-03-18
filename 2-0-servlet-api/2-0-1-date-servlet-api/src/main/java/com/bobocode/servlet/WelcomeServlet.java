@@ -30,7 +30,8 @@ public class WelcomeServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         out.println("<html><body align=\"center\">");
-            out.println("<img src=\"logo_white.svg\" alt=\"Bobocode\" width=\"500\">");
+            out.println("<img src=\"https://raw.githubusercontent.com/bobocode-projects/resources/2a3cf642ed8e5d2cc48c6d0dd9dfcdf220cb377c/image/logo_white.svg\" " +
+                    "alt=\"Bobocode\" width=\"500\">");
             out.println("<h1>" + "Good job! This page is a response of <code>WelcomeServlet</code> object." + "</h1>");
             out.println("<h2>" + "You should create your own class <code>DateServlet</code> which returns " +
                     "current date as a response on <code>/date</code> path.<br> Use <code>LocalDate.now()</code> " +
