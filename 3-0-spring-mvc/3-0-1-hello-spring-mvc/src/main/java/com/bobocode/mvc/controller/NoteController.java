@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping("/notes")
 public class NoteController {
-
     private final Notes notes;
 
 

@@ -6,4 +6,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NoteRestController {
     private final Notes notes;
+
 }
