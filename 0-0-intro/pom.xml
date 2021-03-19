@@ -10,5 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>0-0-intro</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>0-0-1-welcome-to-java-web-course</module>
+    </modules>
 
 </project>
