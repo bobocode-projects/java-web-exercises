@@ -1,7 +1,6 @@
 import com.bobocode.mvc.HelloSpringMvcApp;
 import com.bobocode.mvc.model.Note;
-import com.bobocode.mvc.storage.Notes;
-import org.junit.jupiter.api.BeforeEach;
+import com.bobocode.mvc.data.Notes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
