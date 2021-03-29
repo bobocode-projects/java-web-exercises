@@ -1,25 +1,28 @@
 import com.bobocode.mvc.HelloSpringMvcApp;
-import com.bobocode.mvc.model.Note;
+import com.bobocode.mvc.controller.NoteController;
 import com.bobocode.mvc.data.Notes;
+import com.bobocode.mvc.model.Note;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(classes = HelloSpringMvcApp.class)
 @AutoConfigureMockMvc
+@SpringBootTest(classes = HelloSpringMvcApp.class)
 public class NoteControllerTest {
-
-    @Autowired
+    @MockBean
     private Notes notes;
 
     @Autowired
@@ -27,19 +30,22 @@ public class NoteControllerTest {
 
     @Test
     void getAllNotes() throws Exception {
-        notes.add(new Note("Title 1", "Text 1"));
+        List<Note> noteList = List.of(
+                new Note("Test", "Hello, World!"),
+                new Note("Greeting", "Hey")
+        );
+        when(notes.getAll()).thenReturn(noteList);
 
         mockMvc.perform(get("/notes"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
                 .andExpect(model().attributeExists("noteList"))
-                .andExpect(model().attribute("noteList", notes.getAll()));
+                .andExpect(model().attribute("noteList", noteList));
     }
 
     @Test
     void addNote() throws Exception {
-        Note note = new Note("Title 2", "Text 2");
-        assertTrue(notes.getAll().isEmpty());
+        Note note = new Note("Test", "Hello, World!");
 
         mockMvc.perform(post("/notes")
                 .param("title", note.getTitle())
@@ -48,9 +54,6 @@ public class NoteControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/notes"));
 
-        int lastElementIndex = notes.getAll().size() - 1;
-
-        assertEquals("Title 2", notes.getAll().get(lastElementIndex).getTitle());
-        assertEquals("Text 2", notes.getAll().get(lastElementIndex).getText());
+        verify(notes).add(note);
     }
 }
