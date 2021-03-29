@@ -1,0 +1,92 @@
+/*color #61987e*/
+
+.wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    border-bottom: solid 1px gray;
+}
+
+header h1 {
+    display: block;
+    font-size: 2em;
+    margin-right: 80px;
+}
+
+
+/* Form styles */
+.form_block {
+    flex: 2;
+    display: block;
+    background-color: white;
+    border-radius: 4px;
+    z-index: 98;
+}
+
+form {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: baseline;
+    z-index: 99;
+}
+
+#title_input {
+    flex: 1;
+    margin: 0 10px;
+    padding-left: 8px;
+    border: 1px solid #61987e;
+    border-radius: 6px;
+    outline-color: #61987e;
+}
+
+textarea {
+    flex: 2;
+    margin: 0 10px;
+    padding-left: 8px;
+    resize: none;
+    border-color: #61987e;
+    border-radius: 6px;
+    outline-color: #61987e;
+}
+
+.input_submit {
+    border-style: none;
+    outline-color: transparent;
+    border-radius: 6px;
+    background-color: #61987e;
+    color: #fff;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+}
+
+
+/* Notes stiles */
+.note {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #f3f3f3;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.title_note {
+    font-size: 1.5em;
+    font-weight: 800;
+}
+
+.text_note {
+    margin-top: 20px;
+}
+
+.date_note {
+    margin-top: 20px;
+}
