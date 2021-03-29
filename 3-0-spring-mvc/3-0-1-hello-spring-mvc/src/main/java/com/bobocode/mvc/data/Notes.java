@@ -1,4 +1,4 @@
-package com.bobocode.mvc.storage;
+package com.bobocode.mvc.data;
 
 
 import com.bobocode.mvc.model.Note;

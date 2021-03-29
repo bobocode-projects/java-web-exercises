@@ -16,11 +16,11 @@
         <h1 class="title">My notes</h1>
         <div class="form_block">
 
-            <form action="#" th:action="@{/notes}" th:method="post" th:object="${note}">
+            <form action="#" th:action="@{/notes}" th:method="post">
                 <label for="title_input">Title</label>
-                <input id="title_input" type="text" placeholder="Enter title" required th:field="*{title}">
+                <input id="title_input" name="title" type="text" placeholder="Enter title" required>
                 <label for="text_input" id="text_label">Your note</label>
-                <textarea id="text_input" placeholder="Your text" required rows="1" th:field="*{text}"></textarea>
+                <textarea id="text_input" name="text" placeholder="Your text" required rows="1"></textarea>
                 <input type="submit" value="Add" class="input_submit">
             </form>
 
