@@ -1,7 +1,7 @@
 package com.bobocode.mvc.api;
 
-import com.bobocode.mvc.model.Note;
 import com.bobocode.mvc.data.Notes;
+import com.bobocode.mvc.model.Note;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

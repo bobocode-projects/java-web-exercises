@@ -1,7 +1,7 @@
 package com.bobocode.mvc.controller;
 
-import com.bobocode.mvc.model.Note;
 import com.bobocode.mvc.data.Notes;
+import com.bobocode.mvc.model.Note;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
