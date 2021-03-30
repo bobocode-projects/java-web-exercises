@@ -30,6 +30,6 @@ import lombok.RequiredArgsConstructor;
 public class NoteController {
     private final Notes notes;
 
-    // TODO: implement controller methods according to the javadoc
+    // TODO: implement controller methods according to the javadoc and verify your impl using NoteControllerTest
 
 }
