@@ -9,7 +9,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>3-0-spring-mvc</artifactId>
+    <artifactId>3-0-spring-framework</artifactId>
     <packaging>pom</packaging>
 
     <modules>
