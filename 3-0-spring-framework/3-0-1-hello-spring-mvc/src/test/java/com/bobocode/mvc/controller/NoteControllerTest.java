@@ -1,5 +1,5 @@
-import com.bobocode.mvc.HelloSpringMvcApp;
-import com.bobocode.mvc.controller.NoteController;
+package com.bobocode.mvc.controller;
+
 import com.bobocode.mvc.data.Notes;
 import com.bobocode.mvc.model.Note;
 import lombok.SneakyThrows;
@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,15 +31,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@AutoConfigureMockMvc
-@SpringBootTest(classes = HelloSpringMvcApp.class)
+@WebMvcTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class NoteControllerTest {
     @MockBean
     private Notes notes;
-
-    @Autowired
-    private NoteController controller;
 
     @Autowired
     private MockMvc mockMvc;
@@ -93,6 +88,7 @@ class NoteControllerTest {
     @Test
     @SneakyThrows
     void getNotesMethodReturnNotesViewName() {
+        var controller = new NoteController(notes);
         var getNotesMethod = Arrays.stream(controller.getClass().getDeclaredMethods())
                 .filter(
                         method -> Arrays.stream(method.getDeclaredAnnotations())
@@ -112,6 +108,7 @@ class NoteControllerTest {
     void getNotesMethodAddsNoteListToTheModel() {
         var noteList = givenNoteList();
         var model = new BindingAwareModelMap();
+        var controller = new NoteController(notes);
         var getNotesMethod = Arrays.stream(controller.getClass().getDeclaredMethods())
                 .filter(
                         method -> Arrays.stream(method.getDeclaredAnnotations())
@@ -169,6 +166,7 @@ class NoteControllerTest {
     @Test
     @SneakyThrows
     void addNoteMethodReturnsRedirectToNotes() {
+        var controller = new NoteController(notes);
         var addNoteMethod = Arrays.stream(NoteController.class.getDeclaredMethods())
                 .filter(
                         method -> Arrays.stream(method.getDeclaredAnnotations())
@@ -188,6 +186,7 @@ class NoteControllerTest {
     @SneakyThrows
     void addNotePassPostedNote() {
         var note = new Note("Test", "Hello, World!");
+        var controller = new NoteController(notes);
         var addNoteMethod = Arrays.stream(NoteController.class.getDeclaredMethods())
                 .filter(
                         method -> Arrays.stream(method.getDeclaredAnnotations())
