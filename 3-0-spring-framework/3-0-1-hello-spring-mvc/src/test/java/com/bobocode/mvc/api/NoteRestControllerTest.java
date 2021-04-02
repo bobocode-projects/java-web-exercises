@@ -1,8 +1,5 @@
 package com.bobocode.mvc.api;
 
-import com.bobocode.mvc.HelloSpringMvcApp;
-import com.bobocode.mvc.api.NoteRestController;
-import com.bobocode.mvc.controller.NoteController;
 import com.bobocode.mvc.data.Notes;
 import com.bobocode.mvc.model.Note;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +9,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,8 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
-@SpringBootTest(classes = HelloSpringMvcApp.class)
+@WebMvcTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class NoteRestControllerTest {
 
@@ -42,9 +37,6 @@ class NoteRestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private NoteRestController controller;
 
     @Order(1)
     @Test
@@ -93,6 +85,7 @@ class NoteRestControllerTest {
     @Test
     @SneakyThrows
     void getNotesMethodReturnsNoteList() {
+        var controller = new NoteRestController(notes);
         var noteList = givenNoteList();
         var getNotesMethod = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .filter(
@@ -199,6 +192,7 @@ class NoteRestControllerTest {
     @SneakyThrows
     void addNotePassPostedNote() {
         var note = new Note("Test", "Hello, World!");
+        var controller = new NoteRestController(notes);
         var addNoteMethod = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .filter(
                         method -> Arrays.stream(method.getDeclaredAnnotations())
