@@ -3,10 +3,7 @@ package com.bobocode.mvc.controller;
 import com.bobocode.mvc.data.Notes;
 import com.bobocode.mvc.model.Note;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -40,25 +37,27 @@ class NoteControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Order(1)
     @Test
+    @Order(1)
+    @DisplayName("Class is marked as @Controller")
     void classIsMarkedAsController() {
         var controllerAnnotation = NoteController.class.getAnnotation(Controller.class);
 
         assertNotNull(controllerAnnotation);
     }
 
-    @Order(2)
     @Test
+    @Order(2)
+    @DisplayName("Base URL `/notes` is specified in @RequestMapping")
     void requestMappingIsSpecified() {
         var requestMappingAnnotation = NoteController.class.getAnnotation(RequestMapping.class);
         var urlMapping = extractUrlMapping(requestMappingAnnotation);
 
         assertThat(urlMapping).isEqualTo("/notes");
     }
-
-    @Order(3)
     @Test
+    @Order(3)
+    @DisplayName("Method that get notes is marked with @GetMapping")
     void getMappingIsImplemented() {
         var foundMethodWithGetMapping = Arrays.stream(NoteController.class.getDeclaredMethods())
                 .anyMatch(
@@ -69,8 +68,9 @@ class NoteControllerTest {
         assertTrue(foundMethodWithGetMapping);
     }
 
-    @Order(4)
     @Test
+    @Order(4)
+    @DisplayName("Get method accepts org.springframework.ui.Model as a parameter")
     void getNotesMethodAcceptsModelAsParameter() {
         var getNotesMethod = Arrays.stream(NoteController.class.getDeclaredMethods())
                 .filter(
@@ -84,10 +84,11 @@ class NoteControllerTest {
         assertThat(getNotesMethod.getParameterTypes()[0]).isEqualTo(Model.class);
     }
 
-    @Order(5)
     @Test
+    @Order(5)
     @SneakyThrows
-    void getNotesMethodReturnNotesViewName() {
+    @DisplayName("Get method returns view name \"notes\"")
+    void getNotesMethodReturnsNotesViewName() {
         var controller = new NoteController(notes);
         var getNotesMethod = Arrays.stream(controller.getClass().getDeclaredMethods())
                 .filter(
@@ -102,9 +103,10 @@ class NoteControllerTest {
         assertThat(viewName).isEqualTo("notes");
     }
 
-    @Order(6)
     @Test
+    @Order(6)
     @SneakyThrows
+    @DisplayName("Get method adds noteList attribute to the model")
     void getNotesMethodAddsNoteListToTheModel() {
         var noteList = givenNoteList();
         var model = new BindingAwareModelMap();
@@ -122,8 +124,9 @@ class NoteControllerTest {
         assertThat(model.get("noteList")).isEqualTo(noteList);
     }
 
-    @Order(7)
     @Test
+    @Order(7)
+    @DisplayName("GET endpoint is completed ✅")
     void getNotes() throws Exception {
         var noteList = givenNoteList();
 
@@ -133,9 +136,10 @@ class NoteControllerTest {
                 .andExpect(model().attributeExists("noteList"))
                 .andExpect(model().attribute("noteList", noteList));
     }
-
-    @Order(8)
+    
     @Test
+    @Order(8)
+    @DisplayName("Method that adds a note is marked with @PostMapping")
     void postMappingIsImplemented() {
         var foundMethodWithGetMapping = Arrays.stream(NoteController.class.getDeclaredMethods())
                 .anyMatch(
@@ -146,8 +150,9 @@ class NoteControllerTest {
         assertTrue(foundMethodWithGetMapping);
     }
 
-    @Order(9)
     @Test
+    @Order(9)
+    @DisplayName("Add method accepts Note as a parameter")
     void addNoteMethodAcceptsNewNoteAsParameter() {
         var addNoteMethod = Arrays.stream(NoteController.class.getDeclaredMethods())
                 .filter(
@@ -162,9 +167,10 @@ class NoteControllerTest {
 
     }
 
-    @Order(10)
     @Test
+    @Order(10)
     @SneakyThrows
+    @DisplayName("Add method returns \"redirect:/notes\"")
     void addNoteMethodReturnsRedirectToNotes() {
         var controller = new NoteController(notes);
         var addNoteMethod = Arrays.stream(NoteController.class.getDeclaredMethods())
@@ -181,9 +187,10 @@ class NoteControllerTest {
         assertThat(response).isEqualTo("redirect:/notes");
     }
 
-    @Order(11)
     @Test
+    @Order(11)
     @SneakyThrows
+    @DisplayName("Add method uses storage to add a note")
     void addNotePassPostedNote() {
         var note = new Note("Test", "Hello, World!");
         var controller = new NoteController(notes);
@@ -200,10 +207,11 @@ class NoteControllerTest {
 
         verify(notes).add(note);
     }
-
-    @Order(12)
+    
     @Test
+    @Order(12)
     @SneakyThrows
+    @DisplayName("POST endpoint is completed ✅")
     void addNote() {
         Note note = new Note("Test", "Hello, World!");
 
