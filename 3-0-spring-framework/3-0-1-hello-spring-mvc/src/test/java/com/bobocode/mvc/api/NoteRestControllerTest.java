@@ -1,3 +1,5 @@
+package com.bobocode.mvc.api;
+
 import com.bobocode.mvc.HelloSpringMvcApp;
 import com.bobocode.mvc.api.NoteRestController;
 import com.bobocode.mvc.controller.NoteController;
