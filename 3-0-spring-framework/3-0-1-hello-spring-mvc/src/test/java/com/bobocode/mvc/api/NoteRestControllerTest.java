@@ -4,10 +4,7 @@ import com.bobocode.mvc.data.Notes;
 import com.bobocode.mvc.model.Note;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,16 +35,18 @@ class NoteRestControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Order(1)
     @Test
+    @Order(1)
+    @DisplayName("Class is marked as @RestController")
     void classIsMarkedAsRestController() {
         var restControllerAnnotation = NoteRestController.class.getAnnotation(RestController.class);
 
         assertNotNull(restControllerAnnotation);
     }
 
-    @Order(2)
     @Test
+    @Order(2)
+    @DisplayName("Base URL `/api/notes` is specified in @RequestMapping")
     void requestMappingIsSpecified() {
         var requestMappingAnnotation = NoteRestController.class.getAnnotation(RequestMapping.class);
         var urlMapping = extractUrlMapping(requestMappingAnnotation);
@@ -55,8 +54,9 @@ class NoteRestControllerTest {
         assertThat(urlMapping).isEqualTo("/api/notes");
     }
 
-    @Order(3)
     @Test
+    @Order(3)
+    @DisplayName("Method that get notes is marked with @GetMapping")
     void getMappingIsImplemented() {
         var foundMethodWithGetMapping = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .anyMatch(
@@ -67,8 +67,9 @@ class NoteRestControllerTest {
         assertTrue(foundMethodWithGetMapping);
     }
 
-    @Order(4)
     @Test
+    @Order(4)
+    @DisplayName("Get method has no parameters")
     void getNotesMethodHasNoParameters() {
         var getNotesMethod = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .filter(
@@ -81,9 +82,10 @@ class NoteRestControllerTest {
         assertThat(getNotesMethod.getParameterCount()).isZero();
     }
 
-    @Order(5)
     @Test
+    @Order(5)
     @SneakyThrows
+    @DisplayName("Get method returns stored notes as List<Note>")
     void getNotesMethodReturnsNoteList() {
         var controller = new NoteRestController(notes);
         var noteList = givenNoteList();
@@ -100,8 +102,9 @@ class NoteRestControllerTest {
         assertThat(response).isEqualTo(noteList);
     }
 
-    @Order(6)
     @Test
+    @Order(6)
+    @DisplayName("GET endpoint is completed ✅")
     void getNotes() throws Exception {
         List<Note> noteList = List.of(
                 new Note("Test", "Hello, World!"),
@@ -124,8 +127,9 @@ class NoteRestControllerTest {
                         "]"));
     }
 
-    @Order(7)
     @Test
+    @Order(7)
+    @DisplayName("Method that adds a note is marked with @PostMapping")
     void postMappingIsImplemented() {
         var foundMethodWithGetMapping = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .anyMatch(
@@ -136,8 +140,9 @@ class NoteRestControllerTest {
         assertTrue(foundMethodWithGetMapping);
     }
 
-    @Order(8)
     @Test
+    @Order(8)
+    @DisplayName("Add method accepts Note as a parameter")
     void addNoteMethodAcceptsNewNoteAsParameter() {
         var addNoteMethod = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .filter(
@@ -152,8 +157,9 @@ class NoteRestControllerTest {
 
     }
 
-    @Order(9)
     @Test
+    @Order(9)
+    @DisplayName("Add method parameter note is marked with @RequestBody")
     void addNoteMethodParameterIsMarkedAsRequestBody() {
         var addNoteMethod = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .filter(
@@ -169,9 +175,10 @@ class NoteRestControllerTest {
         assertNotNull(requestBodyAnnotation);
     }
 
-    @Order(10)
     @Test
+    @Order(10)
     @SneakyThrows
+    @DisplayName("Add method returns void")
     void addNoteMethodReturnsVoid() {
         var addNoteMethod = Arrays.stream(NoteRestController.class.getDeclaredMethods())
                 .filter(
@@ -187,9 +194,10 @@ class NoteRestControllerTest {
         assertThat(returnType).isEqualTo(Void.TYPE);
     }
 
-    @Order(11)
     @Test
+    @Order(11)
     @SneakyThrows
+    @DisplayName("Add method uses storage to add a new note")
     void addNotePassPostedNote() {
         var note = new Note("Test", "Hello, World!");
         var controller = new NoteRestController(notes);
@@ -207,8 +215,20 @@ class NoteRestControllerTest {
         verify(notes).add(note);
     }
 
-    @Order(12)
     @Test
+    @Order(12)
+    @DisplayName("POST endpoint responds with error when fields are empty")
+    void addNoteRespondWithClientErrorWhenFieldsAreEmpty() throws Exception {
+        mockMvc.perform(post("/api/notes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(new Note()))
+        )
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("POST endpoint is completed ✅")
     void addNote() throws Exception {
         Note note = new Note("Test", "Hello, World!");
 
@@ -219,16 +239,6 @@ class NoteRestControllerTest {
                 .andExpect(status().isOk());
 
         verify(notes).add(note);
-    }
-
-    @Order(13)
-    @Test
-    void addNoteRespondWithClientErrorWhenFieldsAreEmpty() throws Exception {
-        mockMvc.perform(post("/api/notes")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(new Note()))
-        )
-                .andExpect(status().is4xxClientError());
     }
 
     @SneakyThrows
