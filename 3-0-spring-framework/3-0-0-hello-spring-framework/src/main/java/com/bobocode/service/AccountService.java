@@ -16,6 +16,7 @@ import java.util.List;
  * todo: use implicit constructor-based dependency injection (don't use {@link org.springframework.beans.factory.annotation.Autowired})
  */
 
+@Service
 public class AccountService {
     private final AccountDao accountDao;
 

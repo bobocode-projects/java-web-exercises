@@ -22,6 +22,12 @@ import org.springframework.stereotype.Component;
  * todo 4: Don't specify bean name "dataGenerator" explicitly
  */
 
+@Configuration
+@ComponentScan(basePackages = {"com.bobocode.dao","com.bobocode.service"})
 public class ApplicationConfig {
 
+    @Bean
+    public TestDataGenerator dataGenerator() {
+        return new TestDataGenerator();
+    }
 }
