@@ -17,6 +17,7 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
@@ -108,7 +109,11 @@ public class DateServletTest {
     }
 
     private Method getDoGetMethod() throws NoSuchMethodException {
-        return dateServletClass
-                .getMethod("doGet", HttpServletRequest.class, HttpServletResponse.class);
+        var method = Arrays.stream(dateServletClass.getDeclaredMethods())
+                .filter(m -> m.getName().equals("doGet"))
+                .findAny()
+                .orElseThrow();
+        method.setAccessible(true);
+        return method;
     }
 }
