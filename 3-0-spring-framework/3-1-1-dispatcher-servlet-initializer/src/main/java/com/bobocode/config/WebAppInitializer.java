@@ -1,27 +1,24 @@
 package com.bobocode.config;
 
+import com.bobocode.util.ExerciseNotCompletedException;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  * This class is used to configure DispatcherServlet and links it with application config classes
- * <p>
- * todo: provide default servlet mapping ("/")
- * todo: use {@link WebConfig} as ServletConfig class
- * todo: use {@link RootConfig} as root application config class
  */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        throw new UnsupportedOperationException("Method is not implemented yet!");
+        throw new ExerciseNotCompletedException(); //todo: use {@link RootConfig} as root application config class
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        throw new UnsupportedOperationException("Method is not implemented yet!");
+        throw new ExerciseNotCompletedException(); //todo: use {@link WebConfig} as ServletConfig class
     }
 
     @Override
     protected String[] getServletMappings() {
-        throw new UnsupportedOperationException("Method is not implemented yet!");
+        throw new ExerciseNotCompletedException(); //todo: provide default servlet mapping ("/")
     }
 }

@@ -5,12 +5,12 @@ package com.bobocode.web.controller;
  * <p>
  * todo: mark this class as Spring controller
  * todo: configure HTTP GET mapping "/welcome" for method {@link WelcomeController#welcome()}
- * todo: tell Spring that {@link WelcomeController#welcome()} method provides response body
+ * todo: tell Spring that {@link WelcomeController#welcome()} method provides response body without view
  */
+
 public class WelcomeController {
 
     public String welcome() {
         return "Welcome to Spring MVC!";
     }
-
 }
