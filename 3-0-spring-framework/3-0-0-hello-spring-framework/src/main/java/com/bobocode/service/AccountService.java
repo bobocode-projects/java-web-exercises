@@ -2,8 +2,6 @@ package com.bobocode.service;
 
 import com.bobocode.dao.AccountDao;
 import com.bobocode.model.Account;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
