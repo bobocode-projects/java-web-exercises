@@ -1,8 +1,7 @@
-     package com.bobocode;
+package com.bobocode;
 
 import com.bobocode.dao.AccountDao;
 import com.bobocode.dao.FakeAccountDao;
-import com.bobocode.model.Account;
 import com.bobocode.service.AccountService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import java.util.Comparator;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -95,18 +93,5 @@ class ApplicationContextTest {
         Map<String, AccountService> accountServiceMap = applicationContext.getBeansOfType(AccountService.class);
 
         assertThat(accountServiceMap.keySet()).contains("accountService");
-    }
-
-    @Test
-    @Order(8)
-    @DisplayName("Find the richest account")
-    void findRichestAccount() {
-        Account richestAccount = accountService.findRichestAccount();
-
-        Account actualRichestAccount = accountDao.findAll().stream()
-                .max(Comparator.comparing(Account::getBalance))
-                .orElseThrow();
-
-        assertThat(richestAccount).isEqualTo(actualRichestAccount);
     }
 }

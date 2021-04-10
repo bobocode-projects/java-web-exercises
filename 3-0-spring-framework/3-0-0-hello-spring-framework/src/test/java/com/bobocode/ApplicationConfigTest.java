@@ -40,7 +40,7 @@ public class ApplicationConfigTest {
 
     @Test
     @Order(3)
-    @DisplayName("@ComponentScan packages are specified")
+    @DisplayName("@ComponentScan configured for \"dao\" and \"service\" packages")
     void componentScanPackagesAreSpecified() {
         ComponentScan componentScan = ApplicationConfig.class.getAnnotation(ComponentScan.class);
         String[] packages = componentScan.basePackages();
