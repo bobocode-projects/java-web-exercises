@@ -21,7 +21,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class WelcomeWebAppTest {
+class WebAppConfigurationTest {
 
     @Test
     @Order(1)
@@ -124,7 +124,7 @@ class WelcomeWebAppTest {
 
     @Test
     @Order(11)
-    @DisplayName("Proper Dispatcher Servlet mapping")
+    @DisplayName("Dispatcher Servlet mapping is \"/\"")
     void dispatcherServletMapping() {
         WebAppInitializerWrapper webAppInitializerWrapper = new WebAppInitializerWrapper();
 
@@ -153,7 +153,8 @@ class WelcomeWebAppTest {
     @Order(14)
     @DisplayName("WelcomeController Get method is marked properly")
     void welcomeControllerMethodMapping() throws NoSuchMethodException {
-        GetMapping getMapping = WelcomeController.class.getDeclaredMethod("welcome").getAnnotation(GetMapping.class);
+        GetMapping getMapping = WelcomeController.class
+                .getDeclaredMethod("welcome").getAnnotation(GetMapping.class);
 
         assertThat(getMapping.value()).contains("/welcome");
     }
@@ -162,7 +163,8 @@ class WelcomeWebAppTest {
     @Order(15)
     @DisplayName("WelcomeController Get method is marked as @ResponseBody")
     void welcomeControllerMethodIsMarkedAsResponseBody() throws NoSuchMethodException {
-        ResponseBody responseBody = WelcomeController.class.getDeclaredMethod("welcome").getAnnotation(ResponseBody.class);
+        ResponseBody responseBody = WelcomeController.class
+                .getDeclaredMethod("welcome").getAnnotation(ResponseBody.class);
 
         assertNotNull(responseBody);
     }
