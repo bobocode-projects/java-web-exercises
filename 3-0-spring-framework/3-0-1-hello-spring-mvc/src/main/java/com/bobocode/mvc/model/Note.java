@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -15,7 +16,7 @@ public class Note {
     private String title;
     @NonNull
     private String text;
-    private LocalDate creationDate;
+    private LocalDateTime createdOn;
 
     public Note(String title, String text) {
         this.title = title;
