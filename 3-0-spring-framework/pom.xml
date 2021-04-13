@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>3-0-0-hello-spring-framework</module>
         <module>3-0-1-hello-spring-mvc</module>
         <module>3-1-1-dispatcher-servlet-initializer</module>
     </modules>
