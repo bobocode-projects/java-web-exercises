@@ -2,6 +2,7 @@ package com.bobocode.service;
 
 import com.bobocode.dao.AccountDao;
 import com.bobocode.model.Account;
+import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * todo: use implicit constructor-based dependency injection (don't use {@link org.springframework.beans.factory.annotation.Autowired})
  */
 
+@Service
 public class AccountService {
     private final AccountDao accountDao;
 

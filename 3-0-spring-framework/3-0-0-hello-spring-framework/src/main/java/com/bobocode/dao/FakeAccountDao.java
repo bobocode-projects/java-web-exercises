@@ -18,9 +18,11 @@ import static java.util.stream.Collectors.toList;
  * todo: use explicit (with {@link Autowired} annotation) constructor-based dependency injection for specific bean
  */
 
+@Component("accountDao")
 public class FakeAccountDao implements AccountDao {
     private List<Account> accounts;
 
+    @Autowired
     public FakeAccountDao(TestDataGenerator testDataGenerator) {
         this.accounts = Stream.generate(testDataGenerator::generateAccount)
                 .limit(20)

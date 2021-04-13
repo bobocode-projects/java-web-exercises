@@ -1,10 +1,7 @@
 package com.bobocode.config;
 
 import com.bobocode.TestDataGenerator;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,6 +22,12 @@ import org.springframework.stereotype.Component;
  * todo 4: Don't specify bean name "dataGenerator" explicitly
  */
 
+@Configuration
+@ComponentScan(basePackages = {"com.bobocode.dao", "com.bobocode.service"})
 public class ApplicationConfig {
 
+    @Bean
+    public TestDataGenerator dataGenerator() {
+        return new TestDataGenerator();
+    }
 }
