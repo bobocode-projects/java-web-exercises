@@ -3,18 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>java-web-course</artifactId>
+        <artifactId>java-web-course-util</artifactId>
         <groupId>com.bobocode</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>3-0-spring-framework</artifactId>
-    <packaging>pom</packaging>
 
-    <modules>
-        <module>3-0-1-hello-spring-mvc</module>
-        <module>3-1-1-dispatcher-servlet-initializer</module>
-    </modules>
+    <artifactId>java-web-util</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>io.codearte.jfairy</groupId>
+            <artifactId>jfairy</artifactId>
+            <version>0.5.9</version>
+        </dependency>
+    </dependencies>
 
 </project>
