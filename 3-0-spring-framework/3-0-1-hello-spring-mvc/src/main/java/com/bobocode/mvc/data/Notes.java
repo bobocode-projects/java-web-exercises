@@ -1,23 +1,25 @@
 package com.bobocode.mvc.data;
 
-
 import com.bobocode.mvc.model.Note;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
 public class Notes {
-    private final Map<UUID, Note> notes = new LinkedHashMap<>();
+    private final Map<UUID, Note> notesMap = new HashMap<>();
 
     public List<Note> getAll(){
-        return new ArrayList<>(notes.values());
+        var noteList = new ArrayList<>(notesMap.values());
+        noteList.sort(Comparator.comparing(Note::getCreatedOn));
+        return noteList;
     }
 
     public void add(Note note) {
         note.setId(UUID.randomUUID());
-        note.setCreationDate(LocalDate.now());
-        notes.put(note.getId(), note);
+        note.setCreatedOn(LocalDateTime.now());
+        notesMap.put(note.getId(), note);
     }
 }
