@@ -16,6 +16,7 @@
         <module>3-0-0-hello-spring-framework</module>
         <module>3-0-1-hello-spring-mvc</module>
         <module>3-1-1-dispatcher-servlet-initializer</module>
+        <module>3-2-1-account-rest-api</module>
     </modules>
 
 </project>
