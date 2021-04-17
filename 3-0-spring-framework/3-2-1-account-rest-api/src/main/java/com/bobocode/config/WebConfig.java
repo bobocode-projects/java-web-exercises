@@ -8,5 +8,4 @@ package com.bobocode.config;
  * todo: 3. Enable component scanning for package "web" using annotation value
  */
 public class WebConfig {
-
 }

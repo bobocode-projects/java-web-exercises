@@ -48,5 +48,6 @@ public class InMemoryAccountDao implements AccountDao {
 
     public void clear() {
         accountMap.clear();
+        idSequence = 1L;
     }
 }

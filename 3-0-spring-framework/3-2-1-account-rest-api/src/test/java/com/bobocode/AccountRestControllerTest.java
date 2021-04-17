@@ -25,8 +25,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringJUnitWebConfig(classes = {RootConfig.class, WebConfig.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SpringJUnitWebConfig(classes = {RootConfig.class, WebConfig.class})
 class AccountRestControllerTest {
     @Autowired
     private WebApplicationContext applicationContext;
@@ -65,8 +65,8 @@ class AccountRestControllerTest {
     @Test
     @Order(3)
     @DisplayName("AccountDao is injected using constructor")
-    void accountDaoInjection() throws NoSuchMethodException {
-        Constructor<AccountRestController> constructor = AccountRestController.class.getConstructor();
+    void accountDaoInjection() {
+        Constructor<?> constructor = AccountRestController.class.getConstructors()[0];
 
         assertThat(constructor.getParameterTypes()).contains(AccountDao.class);
     }
@@ -140,17 +140,6 @@ class AccountRestControllerTest {
 
     @Test
     @Order(9)
-    @DisplayName("Removing account is implemented")
-    void removeAccount() throws Exception {
-        Account account = create("Johnny", "Boy", "jboy@gmail.com");
-        accountDao.save(account);
-
-        mockMvc.perform(delete(String.format("/accounts/%d", account.getId())))
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    @Order(10)
     @DisplayName("Updating account is implemented")
     void updateAccount() throws Exception {
         Account account = create("Johnny", "Boy", "jboy@gmail.com");
@@ -160,4 +149,16 @@ class AccountRestControllerTest {
                 .content(String.format("{\"id\":\"%d\", \"firstName\":\"Johnny\", \"lastName\":\"Boy\", \"email\":\"johnny.boy@gmail.com\"}", account.getId())))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    @Order(10)
+    @DisplayName("Removing account is implemented")
+    void removeAccount() throws Exception {
+        Account account = create("Johnny", "Boy", "jboy@gmail.com");
+        accountDao.save(account);
+
+        mockMvc.perform(delete(String.format("/accounts/%d", account.getId())))
+                .andExpect(status().isNoContent());
+    }
 }
+
