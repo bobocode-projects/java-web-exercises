@@ -5,6 +5,7 @@ import com.bobocode.dao.AccountDao;
 import com.bobocode.dao.FakeAccountDao;
 import com.bobocode.service.AccountService;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ApplicationConfigTest {
+class ApplicationConfigTest {
 
     @Test
     @Order(1)
@@ -52,6 +53,24 @@ public class ApplicationConfigTest {
 
     @Test
     @Order(4)
+    @DisplayName("FakeAccountDao is configured as @Component")
+    void fakeAccountDaoIsConfiguredAsComponent() {
+        Component component = FakeAccountDao.class.getAnnotation(Component.class);
+
+        assertNotNull(component);
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("AccountDao constructor is marked with @Autowired")
+    void accountDaoConstructorIsMarkedWithAutowired() throws NoSuchMethodException {
+        Autowired autowired = FakeAccountDao.class.getConstructor(TestDataGenerator.class).getAnnotation(Autowired.class);
+
+        assertNotNull(autowired);
+    }
+
+    @Test
+    @Order(6)
     @DisplayName("DataGenerator bean is configured in method marked with @Bean")
     void dataGeneratorBeanIsConfiguredExplicitly() {
         Method[] methods = ApplicationConfig.class.getMethods();
@@ -61,7 +80,7 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     @DisplayName("DataGenerator bean name is not specified explicitly")
     void dataGeneratorBeanNameIsNotSpecifiedExplicitly() {
         Method[] methods = ApplicationConfig.class.getMethods();
@@ -73,16 +92,7 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    @Order(6)
-    @DisplayName("FakeAccountDao is configured as @Component")
-    void fakeAccountDaoIsConfiguredAsComponent() {
-        Component component = FakeAccountDao.class.getAnnotation(Component.class);
-
-        assertNotNull(component);
-    }
-
-    @Test
-    @Order(7)
+    @Order(8)
     @DisplayName("AccountService is configured as @Service")
     void accountServiceIsConfiguredAsService() {
         Service service = AccountService.class.getAnnotation(Service.class);
@@ -91,7 +101,7 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     @DisplayName("AccountService bean name is not specified explicitly")
     void accountServiceBeanNameIsNotSpecifiedExplicitly() {
         Service service = AccountService.class.getAnnotation(Service.class);
@@ -100,7 +110,7 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    @Order(9)
+    @Order(10)
     @DisplayName("AccountService doesn't use @Autowired")
     void accountServiceDoesNotUseAutowired() throws NoSuchMethodException {
         Annotation[] annotations = AccountService.class.getConstructor(AccountDao.class).getDeclaredAnnotations();
