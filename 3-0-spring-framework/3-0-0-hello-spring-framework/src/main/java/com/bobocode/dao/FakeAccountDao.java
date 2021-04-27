@@ -11,13 +11,13 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 /**
- * This class should be marked with @{@link Component}, thus Spring container will create an instance
- * of {@link FakeAccountDao} class, and will register it the context.
+ * {@link FakeAccountDao} implements {@link AccountDao} using fake data. Instead of storing and fetching accounts from
+ * some storage, it just generates fake records using {@link TestDataGenerator}.
  * <p>
- * todo: configure this class as Spring component with bean name "accountDao"
- * todo: use explicit (with {@link Autowired} annotation) constructor-based dependency injection for specific bean
+ * An instance of this class should be created and added to the application context, so it is marked as Spring component.
+ * Its bean is called "accountDao". And it uses constructor with explicit autowired annotation in order to inject
+ * {@link TestDataGenerator} instance.
  */
-
 @Component("accountDao")
 public class FakeAccountDao implements AccountDao {
     private List<Account> accounts;

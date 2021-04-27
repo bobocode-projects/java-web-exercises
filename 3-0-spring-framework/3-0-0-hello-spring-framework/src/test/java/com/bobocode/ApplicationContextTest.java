@@ -26,12 +26,6 @@ class ApplicationContextTest {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private AccountDao accountDao;
-
     @Test
     @Order(1)
     @DisplayName("DataGenerator has only one bean")
@@ -43,7 +37,7 @@ class ApplicationContextTest {
 
     @Test
     @Order(2)
-    @DisplayName("DataGenerator bean has proper name")
+    @DisplayName("DataGenerator bean is called \"dataGenerator\"")
     void testDataGeneratorBeanName() {
         Map<String, TestDataGenerator> dataGeneratorBeanMap = applicationContext.getBeansOfType(TestDataGenerator.class);
 
@@ -61,20 +55,11 @@ class ApplicationContextTest {
 
     @Test
     @Order(4)
-    @DisplayName("AccountDao bean has proper name")
+    @DisplayName("AccountDao bean is called \"accountDao\"")
     void accountDaoBeanName() {
         Map<String, AccountDao> accountDaoBeanMap = applicationContext.getBeansOfType(AccountDao.class);
 
         assertThat(accountDaoBeanMap.keySet()).contains("accountDao");
-    }
-
-    @Test
-    @Order(5)
-    @DisplayName("AccountDao constructor is marked with @Autowired")
-    void accountDaoConstructorIsMarkedWithAutowired() throws NoSuchMethodException {
-        Autowired autowired = FakeAccountDao.class.getConstructor(TestDataGenerator.class).getAnnotation(Autowired.class);
-
-        assertNotNull(autowired);
     }
 
     @Test
@@ -88,7 +73,7 @@ class ApplicationContextTest {
 
     @Test
     @Order(7)
-    @DisplayName("AccountService has proper name")
+    @DisplayName("AccountService bean is called \"accountService\"")
     void accountServiceBeanName() {
         Map<String, AccountService> accountServiceMap = applicationContext.getBeansOfType(AccountService.class);
 
