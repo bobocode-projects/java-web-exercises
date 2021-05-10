@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -18,13 +17,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest
 @ContextConfiguration(classes = {ResolverConfig.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ViewResolverTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -38,7 +39,7 @@ public class ViewResolverTest {
 
     @Test
     @Order(2)
-    @DisplayName("Configuration Class marked as @EnableWebMvc")
+    @DisplayName("Configuration Class has annotation @EnableWebMvc")
     void classAnnotatedWithEnableWebMvc() {
         EnableWebMvc enableWebMvc = ResolverConfig.class.getAnnotation(EnableWebMvc.class);
         assertNotNull(enableWebMvc);
@@ -46,7 +47,7 @@ public class ViewResolverTest {
 
     @Test
     @Order(3)
-    @DisplayName("Configuration Class marked as @ComponentScan")
+    @DisplayName("Configuration Class has annotation @ComponentScan")
     void classAnnotatedWithComponentScan() {
         ComponentScan componentScan = ResolverConfig.class.getAnnotation(ComponentScan.class);
         assertNotNull(componentScan);
@@ -62,7 +63,7 @@ public class ViewResolverTest {
 
     @Test
     @Order(5)
-    @DisplayName("Is config class implements WebMvcConfigurer interface")
+    @DisplayName("Config class implements WebMvcConfigurer interface")
     void isConfigClassImplementsWebMvcConfigurerInterface() {
         assertTrue(WebMvcConfigurer.class.isAssignableFrom(ResolverConfig.class));
     }
@@ -70,7 +71,7 @@ public class ViewResolverTest {
     @SneakyThrows
     @Test
     @Order(6)
-    @DisplayName("Is config class overrides configureViewResolvers method")
+    @DisplayName("Config class overrides configureViewResolvers method")
     void isConfigurationClassContainsViewResolverMethod() {
         Method configureViewResolvers = ResolverConfig.class.getMethod("configureViewResolvers", ViewResolverRegistry.class);
         assertNotNull(configureViewResolvers);
@@ -79,8 +80,11 @@ public class ViewResolverTest {
     @Test
     @Order(7)
     @SneakyThrows
-    void getRequestReturnOkStatus() {
+    @DisplayName("Get request returns correct view name and URL")
+    void getRequestReturnCorrectUrlAndViewName() {
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"))
+                .andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/index.jsp"));
     }
 }
