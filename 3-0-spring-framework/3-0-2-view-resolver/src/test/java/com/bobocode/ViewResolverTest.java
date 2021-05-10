@@ -1,6 +1,6 @@
-package com.bobocode.viewresolver;
+package com.bobocode;
 
-import com.bobocode.viewresolver.config.ResolverConfig;
+import com.bobocode.config.ResolverConfig;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
