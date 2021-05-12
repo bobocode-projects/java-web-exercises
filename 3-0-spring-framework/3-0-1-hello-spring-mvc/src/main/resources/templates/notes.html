@@ -31,7 +31,7 @@
     <div class="note" th:each="theNote : ${noteList}">
         <div class="title_note" th:text="${theNote.title}">The title</div>
         <div class="text_note" th:text="${theNote.text}">The text of very long story, or just shopping list</div>
-        <div class="date_note" th:text="${theNote.createdOn.toLocalDate()}">23.04.2021</div>
+        <div class="date_note" th:text="${theNote.createdOn}">23.04.2021</div>
     </div>
 </div>
 
