@@ -3,6 +3,7 @@ package com.bobocode;
 import com.bobocode.config.ResolverConfig;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,13 +22,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest
-@ContextConfiguration(classes = {ResolverConfig.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ViewResolverTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    private final ResolverConfig config = new ResolverConfig();
+    private final ViewResolverRegistry resolverRegistry = Mockito.mock(ViewResolverRegistry.class);
 
     @Test
     @Order(1)
@@ -58,7 +57,7 @@ public class ViewResolverTest {
     @DisplayName("ComponentScan packages are indicated")
     void ComponentScanHasIndicatedPackages() {
         ComponentScan componentScan = ResolverConfig.class.getAnnotation(ComponentScan.class);
-        assertEquals("com.bobocode.resolver", componentScan.basePackages()[0]);
+        assertEquals("com.bobocode", componentScan.basePackages()[0]);
     }
 
     @Test
@@ -80,11 +79,9 @@ public class ViewResolverTest {
     @Test
     @Order(7)
     @SneakyThrows
-    @DisplayName("Get request returns correct view name and URL")
-    void getRequestReturnCorrectUrlAndViewName() {
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/index.jsp"));
+    @DisplayName("View resolver registry has correct prefix and suffix")
+    void viewResolverRegistryHasCorrectPrefixAndSuffix() {
+        config.getClass().getMethod("configureViewResolvers", ViewResolverRegistry.class).invoke(config, resolverRegistry);
+        Mockito.verify(resolverRegistry).jsp("/WEB-INF/views/", ".jsp");
     }
 }
