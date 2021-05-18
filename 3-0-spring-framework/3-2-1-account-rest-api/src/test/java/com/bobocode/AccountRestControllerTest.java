@@ -53,7 +53,7 @@ class AccountRestControllerTest {
 
     @Test
     @Order(2)
-    @DisplayName("AccountRestController is annotated and mapped with @RequestMapping")
+    @DisplayName("AccountRestController is specified in @RequestMapping")
     void accountRestControllerRequestMapping() {
         RequestMapping requestMapping = AccountRestController.class.getAnnotation(RequestMapping.class);
 
@@ -110,7 +110,7 @@ class AccountRestControllerTest {
 
     @Test
     @Order(7)
-    @DisplayName("Creating account returns corresponding HTTP status")
+    @DisplayName("Creating account returns corresponding HTTP status - 201")
     void httpStatusCodeOnCreate() throws Exception {
         mockMvc.perform(
                 post("/accounts")
