@@ -3,16 +3,15 @@ package com.bobocode.service;
 import com.bobocode.dao.AccountDao;
 import com.bobocode.model.Account;
 
-import java.util.Comparator;
-import java.util.List;
+import static java.util.Comparator.comparing;
 
 /**
- * Provides service API for {@link Account}.
+ * {@link AccountService} is a very simple service that allows to find the richest person based on data provided to
+ * {@link AccountDao}.
  * <p>
- * todo: configure {@link AccountService} bean implicitly using special annotation for service classes
- * todo: use implicit constructor-based dependency injection (don't use {@link org.springframework.beans.factory.annotation.Autowired})
+ * Since it's a service that should be added to the application context, it is marked as Spring service. It order to get
+ * {@link AccountDao} instances, it uses implicit constructor-based injection.
  */
-
 public class AccountService {
     private final AccountDao accountDao;
 
@@ -21,9 +20,9 @@ public class AccountService {
     }
 
     public Account findRichestAccount() {
-        List<Account> accounts = accountDao.findAll();
-        return accounts.stream()
-                .max(Comparator.comparing(Account::getBalance))
-                .get();
+        return accountDao.findAll()
+                .stream()
+                .max(comparing(Account::getBalance))
+                .orElseThrow();
     }
 }
