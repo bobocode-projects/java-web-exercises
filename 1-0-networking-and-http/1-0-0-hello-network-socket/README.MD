@@ -16,7 +16,7 @@ Learn **Sockets** – the essential part of Java networking 💪
 * **experiment** with MessageBoard application that consists of a client and server apps ✅
 
 ### Exercise overview 🇺🇦
-TDB
+[Network Socket – Основа Основ. Огляд Нової Вправи "hello-network-socket"](https://youtu.be/31u5CoVDX5w) <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/yt_icon_rgb.png" height=13/>
 
 ---
 
