@@ -16,8 +16,11 @@ Learn **Sockets** – the essential part of Java networking 💪
 * **experiment** with MessageBoard application that consists of a client and server apps ✅
 
 ### Exercise overview 🇺🇦
-[Network Socket – Основа Основ. Огляд Нової Вправи "hello-network-socket"](https://youtu.be/31u5CoVDX5w) <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/yt_icon_rgb.png" height=13/>
+[![Linked List](https://yt-embed.herokuapp.com/embed?v=31u5CoVDX5w)](https://youtu.be/31u5CoVDX5w)
 
 ---
 
 #### 🆕 First time here? – [See Introduction](https://github.com/bobocode-projects/java-fundamentals-course/tree/main/0-0-intro#introduction)
+
+##
+<div align="center"><img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/animation/GitHub%20Star_3.gif" height=50/></div>
