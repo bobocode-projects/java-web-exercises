@@ -72,7 +72,7 @@ public class ViewResolverTest {
     @Order(6)
     @DisplayName("Config class overrides configureViewResolvers method")
     void isConfigurationClassContainsViewResolverMethod() {
-        Method configureViewResolvers = ResolverConfig.class.getMethod("configureViewResolvers", ViewResolverRegistry.class);
+        Method configureViewResolvers = ResolverConfig.class.getDeclaredMethod("configureViewResolvers", ViewResolverRegistry.class);
         assertNotNull(configureViewResolvers);
     }
 
