@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bobocode</groupId>
-    <artifactId>java-web-course</artifactId>
+    <artifactId>java-web-exercises</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>java-web-course-util</module>
+        <module>java-web-exercises-util</module>
         <module>0-0-intro</module>
         <module>1-0-networking-and-http</module>
         <module>2-0-servlet-api</module>
