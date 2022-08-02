@@ -2,7 +2,7 @@
 Start learning Servlet API – the foundation of Java web applications 💪
 
 ### Pre-conditions ❗
-You're supposed to be familiar with [Java Fundamentals](https://github.com/bobocode-projects/java-fundamentals-course#welcome-to-the-java-fundamentals-course)
+You're supposed to be familiar with [Java Fundamentals](https://github.com/bobocode-projects/java-fundamentals-exercises#welcome-to-the-java-fundamentals-exercises)
 
 ### Objectives
 * **install** [Apache Tomcat Container](https://tomcat.apache.org/download-90.cgi) locally (if you don't have it yet) ✅
@@ -43,7 +43,7 @@ todo
 [![Linked List](https://yt-embed.herokuapp.com/embed?v=s11Fjue5Svs)](https://youtu.be/s11Fjue5Svs)
 
 ---
-#### 🆕 First time here? – [See Introduction](https://github.com/bobocode-projects/java-fundamentals-course/tree/main/0-0-intro#introduction)
+#### 🆕 First time here? – [See Introduction](https://github.com/bobocode-projects/java-fundamentals-exercises/tree/main/0-0-intro#introduction)
 
 ##
 <div align="center"><img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/animation/GitHub%20Star_3.gif" height=50/></div>

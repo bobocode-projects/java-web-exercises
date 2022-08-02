@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bobocode</groupId>
-    <artifactId>java-web-course</artifactId>
+    <artifactId>java-web-exercises</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>java-web-course-util</module>
+        <module>java-web-exercises-util</module>
         <module>0-0-intro</module>
         <module>1-0-networking-and-http</module>
         <module>2-0-servlet-api</module>
@@ -20,21 +20,21 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.18</version>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.24</version>
+            <version>1.7.36</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -51,13 +51,13 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.18.1</version>
+            <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.9.12</version>
+            <version>0.10.2</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -73,13 +73,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.8.0</version>
+            <version>4.6.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>3.8.0</version>
+            <version>4.6.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
