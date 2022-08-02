@@ -2,15 +2,15 @@ package com.bobocode;
 
 import com.bobocode.model.Account;
 import com.bobocode.model.Gender;
-import io.codearte.jfairy.Fairy;
-import io.codearte.jfairy.producer.person.Person;
-
+import com.devskiller.jfairy.Fairy;
+import com.devskiller.jfairy.producer.person.Person;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TestDataGenerator {
+
     public Account generateAccount() {
         Fairy fairy = Fairy.create();
         Person person = fairy.person();
@@ -30,7 +30,7 @@ public class TestDataGenerator {
         account.setEmail(person.getEmail());
         account.setBirthday(LocalDate.of(
                 person.getDateOfBirth().getYear(),
-                person.getDateOfBirth().getMonthOfYear(),
+                person.getDateOfBirth().getMonth(),
                 person.getDateOfBirth().getDayOfMonth()));
         account.setGender(Gender.valueOf(person.getSex().name()));
         return account;
