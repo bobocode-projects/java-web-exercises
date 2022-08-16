@@ -10,7 +10,8 @@ public class DemoWebApp {
     public static void main(String[] args) {
         var context = new ApplicationContextImpl("com.bobocode.demo");
         MessageService messageService = context.getBean(MessageService.class);
-        messageService.setMessage("Hello everyone! It's been a good time");
+        System.out.println(messageService.getClass());
+        messageService.setMessage("        Hello everyone! It's been a good time    ");
         PrinterService printerService = context.getBean(PrinterService.class);
         printerService.printMessage();
     }

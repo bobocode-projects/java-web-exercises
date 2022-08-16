@@ -1,6 +1,7 @@
 package com.bobocode.demo.service;
 
 import com.bobocode.demo.annotation.Component;
+import com.bobocode.demo.annotation.Trimmed;
 
 @Component
 public class MessageService {
@@ -10,7 +11,7 @@ public class MessageService {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(@Trimmed String message) {
         this.message = message;
     }
 }
