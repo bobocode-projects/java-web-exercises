@@ -18,6 +18,7 @@
         <module>3-1-1-dispatcher-servlet-initializer</module>
         <module>3-0-2-view-resolver</module>
         <module>3-2-1-account-rest-api</module>
+        <module>bean-post-processor</module>
     </modules>
 
     <dependencies>
