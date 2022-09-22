@@ -2,7 +2,7 @@
 
 Improve your *Spring* post-processing and proxy configuration knowledge
 
-### Objectives:
+### Tasks:
 
 * Implement Spring `BeanPostProcessor`
 * Create an object proxy using **CGLib**

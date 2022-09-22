@@ -3,6 +3,8 @@ package com.bobocode;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.bobocode.config.TrimmingEnabledConfig;
@@ -16,6 +18,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -69,7 +72,7 @@ class TrimmingEnabledPostProcessorTest {
 
         assertTrue(targetValues.isPresent());
         assertEquals(1, targetValues.get().length);
-        assertThat(List.of(targetValues), contains(ElementType.TYPE));
+        assertThat(List.of(targetValues.get()), contains(ElementType.TYPE));
 
     }
 
@@ -103,8 +106,8 @@ class TrimmingEnabledPostProcessorTest {
     @DisplayName("StringTrimmingConfiguration annotated by @Configuration spring annotation")
     void stringTrimmingConfiguration_annotatedAsConfiguration() {
         Optional<Class<?>> configClass = findClassInPackage("StringTrimmingConfiguration");
-        Annotation[] annotations = configClass.getClass().getDeclaredAnnotations();
-        assertThat(List.of(annotations), contains(Configuration.class));
+        assertTrue(configClass.isPresent());
+        assertNotNull(configClass.get().getDeclaredAnnotation(Configuration.class));
     }
 
     @Test
@@ -112,7 +115,11 @@ class TrimmingEnabledPostProcessorTest {
     @DisplayName("StringTrimmingConfiguration contains methods to provide new instance of TrimmedAnnotationBeanPostProcessor")
     void stringTrimmingConfiguration_createsBeanOfTrimmedAnnotationPostProcessor() {
         Optional<Class<?>> configClass = findClassInPackage("StringTrimmingConfiguration");
-        Method[] methods = configClass.getClass().getDeclaredMethods();
+
+        Method[] methods =
+                configClass.orElseThrow(() -> new NoSuchElementException("StringTrimmingConfiguration class is not found"))
+                        .getDeclaredMethods();
+
         Optional<Method> postProcessorBeanMethod =
                 Stream.of(methods).filter(m -> m.getReturnType().equals(TrimmedAnnotationBeanPostProcessor.class))
                         .findFirst();
@@ -125,7 +132,8 @@ class TrimmingEnabledPostProcessorTest {
             " @Bean annotation")
     void trimmedAnnotationBeanPostProcessorMethod_markedAsBean() {
         Optional<Class<?>> configClass = findClassInPackage("StringTrimmingConfiguration");
-        Method[] methods = configClass.getClass().getDeclaredMethods();
+        Method[] methods = configClass.orElseThrow(
+                () -> new NoSuchElementException("StringTrimmingConfiguration class is not found")).getDeclaredMethods();
         Optional<Bean> beanAnnotation = Stream.of(methods)
                 .filter(m -> m.getReturnType().equals(TrimmedAnnotationBeanPostProcessor.class))
                 .map(m -> m.getAnnotation(Bean.class)).findFirst();
@@ -157,6 +165,16 @@ class TrimmingEnabledPostProcessorTest {
 
     @Test
     @Order(11)
+    @DisplayName("TrimmedAnnotationBeanPostProcessor does not override postProcessBeforeInitialization() method")
+    void trimmedAnnotationBeanPostProcessor_notOverridesPostProcessAfterInitMethod() {
+        boolean isBeforeProcessingMethodPresent = Arrays.stream(TrimmedAnnotationBeanPostProcessor.class.getDeclaredMethods())
+                .anyMatch(m -> m.getName().equals("postProcessBeforeInitialization"));
+
+        assertFalse(isBeforeProcessingMethodPresent);
+    }
+
+    @Test
+    @Order(12)
     @DisplayName("TrimmedAnnotationBeanPostProcessor trims String input params of all methods of class marked by @Trimmed if " +
             "trimming is enabled by @EnableStringTrimming ")
     void trimmedAnnotationPostProcessor_trimmedClass_inputParams(@Autowired TrimmedService service) {
@@ -167,7 +185,7 @@ class TrimmingEnabledPostProcessorTest {
     }
 
     @Test
-    @Order(12)
+    @Order(13)
     @DisplayName("TrimmedAnnotationBeanPostProcessor trims String return values of all methods of class marked by @Trimmed if " +
             "trimming is enabled by @EnableStringTrimming ")
     void trimmedAnnotationPostProcessor_trimmedClass_returnValue(@Autowired TrimmedService service) {
@@ -178,7 +196,7 @@ class TrimmingEnabledPostProcessorTest {
     }
 
     @Test
-    @Order(13)
+    @Order(14)
     @DisplayName("TrimmedAnnotationBeanPostProcessor not trims String input args methods of class that not marked by @Trimmed")
     void trimmedAnnotationPostProcessor_notTrimmedClass_inputParams(@Autowired NotTrimmedService service) {
         String inputArgs = " Simba Bimba ";
@@ -188,7 +206,7 @@ class TrimmingEnabledPostProcessorTest {
     }
 
     @Test
-    @Order(14)
+    @Order(15)
     @DisplayName("TrimmedAnnotationBeanPostProcessor not trims String input args methods of class that not marked by @Trimmed")
     void trimmedAnnotationPostProcessor_notTrimmedClass_returnValue(@Autowired NotTrimmedService service) {
         String inputArgs = "Simba Bimba";
