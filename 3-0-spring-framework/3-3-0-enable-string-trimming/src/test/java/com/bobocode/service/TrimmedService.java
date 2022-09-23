@@ -4,14 +4,13 @@ import com.bobocode.Trimmed;
 import org.springframework.stereotype.Service;
 
 @Service
-@Trimmed
 public class TrimmedService {
 
-    public String wrapStringWithSpaces(String string) {
-        return "   " + string + "   ";
+    public String getTheTrimmedString(@Trimmed String string) {
+        return string;
     }
 
-    public String getTheSameString(String string) {
+    public String getNotTrimmedString(String string) {
         return string;
     }
 }

@@ -1,9 +1,15 @@
 package com.bobocode;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
- * Annotation that can be placed on class to enable automatic String trimming for bean marked by it.
+ * Annotation that can be placed on {@link  String} method parameters to enable automatic trimming values of these parameters.
  */
-//todo: Create annotation @Trimmed visible in runtime that you can put on class
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
 public @interface Trimmed {
 
 }
