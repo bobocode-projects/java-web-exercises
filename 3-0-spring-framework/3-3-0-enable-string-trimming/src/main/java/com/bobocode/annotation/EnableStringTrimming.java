@@ -1,4 +1,4 @@
-package com.bobocode;
+package com.bobocode.annotation;
 
 /**
  * Annotation that can be placed on configuration class to import {@link StringTrimmingConfiguration}

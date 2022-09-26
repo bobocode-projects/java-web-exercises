@@ -1,14 +1,13 @@
-# <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/logo_transparent_background.png" height=50/>Proxy String Trimmer exercise 💪
+# <img src="https://raw.githubusercontent.com/bobocode-projects/resources/master/image/logo_transparent_background.png" height=50/>String Trimming Exercise 💪
 
 Improve your *Spring* post-processing and proxy configuration knowledge
 
-### Tasks:
+### Objectives:
 
-* Implement Spring `BeanPostProcessor`
-* Create an object proxy using **CGLib**
-* Implement auto-trimming functionality with custom annotation `@Trimmed`
-* Implement a special configuration that allows enabling auto-trimming with `@EnableStringTrimming` annotation
-* To verify your application, run all tests in the test package.
+* Implement Spring BeanPostProcessor interface
+* Create a bean proxy using CGLib
+* Understand the idea of post-processing and proxy creation in Spring
+* Explain how `@Enable`... annotations magic works in Spring
 
 ### Pre-conditions ❗
 

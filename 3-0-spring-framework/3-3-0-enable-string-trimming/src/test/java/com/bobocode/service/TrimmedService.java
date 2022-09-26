@@ -1,6 +1,6 @@
 package com.bobocode.service;
 
-import com.bobocode.Trimmed;
+import com.bobocode.annotation.Trimmed;
 import org.springframework.stereotype.Service;
 
 @Service

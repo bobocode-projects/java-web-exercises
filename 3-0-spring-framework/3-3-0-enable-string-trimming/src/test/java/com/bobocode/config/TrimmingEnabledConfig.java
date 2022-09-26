@@ -1,6 +1,6 @@
 package com.bobocode.config;
 
-import com.bobocode.EnableStringTrimming;
+import com.bobocode.annotation.EnableStringTrimming;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
