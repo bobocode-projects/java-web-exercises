@@ -2,6 +2,8 @@ package com.bobocode;
 
 import com.bobocode.annotation.Trimmed;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * This is processor class implements {@link BeanPostProcessor}, looks for a beans where method parameters are marked with
@@ -9,10 +11,11 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * {@link Trimmed}. For example if there is a string " Java   " as an input parameter it has to be automatically trimmed to "Java"
  * if parameter is marked with {@link Trimmed} annotation.
  * <p>
- * In order to enable automatic String trimming, please use {@link EnableStringTrimming}
+ *
+ * Note! This bean is not marked as a {@link Component} to avoid automatic scanning, instead it should be created in
+ * {@link StringTrimmingConfiguration} class which can be imported to a {@link Configuration} class by annotation
+ * {@link EnableStringTrimming}
  */
 public class TrimmedAnnotationBeanPostProcessor {
 //todo: Implement TrimmedAnnotationBeanPostProcessor according to javadoc
-//todo: Extract creating of TrimmedAnnotationBeanPostProcessor bean to StringTrimmingConfiguration config class
-//todo: Implement @EnableStringTrimming annotation to import StringTrimmingConfiguration config to another configuration classes
 }

@@ -41,34 +41,11 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class TrimmingPostProcessorTest {
+class EnableStringTrimmingTest {
 
     @Test
     @Order(1)
-    @DisplayName("Annotation @Trimmed has target <PARAMETER>")
-    void trimmedAnnotationHasTypeTarget() {
-        Optional<Class<? extends Annotation>> annotation = findAnnotationInPackage("Trimmed");
-        Optional<ElementType[]> targetValues = annotation.map(a -> a.getAnnotation(Target.class)).map(Target::value);
-
-        assertTrue(targetValues.isPresent());
-        assertEquals(1, targetValues.get().length);
-        assertEquals(ElementType.PARAMETER, targetValues.get()[0]);
-    }
-
-    @Test
-    @Order(2)
-    @DisplayName("Annotation @Trimmed has retention <Runtime>")
-    void trimmedAnnotationHasRuntimeRetention() {
-        Optional<Class<? extends Annotation>> annotation = findAnnotationInPackage("Trimmed");
-        Optional<Retention> retention = annotation.map(a -> a.getAnnotation(Retention.class))
-                .filter(r -> r.value().equals(RetentionPolicy.RUNTIME));
-
-        assertTrue(retention.isPresent());
-    }
-
-    @Test
-    @Order(3)
-    @DisplayName("Annotation @EnableStringTrimming has target <Type>")
+    @DisplayName("Annotation @EnableStringTrimming has target 'TYPE'")
     void enableStringTrimmingAnnotationHasCorrectTarget() {
         Optional<Class<? extends Annotation>> annotation = findAnnotationInPackage("EnableStringTrimming");
         Optional<ElementType[]> targetValues = annotation.map(a -> a.getAnnotation(Target.class)).map(Target::value);
@@ -80,8 +57,8 @@ class TrimmingPostProcessorTest {
     }
 
     @Test
-    @Order(4)
-    @DisplayName("Annotation @EnableStringTrimming has retention <Runtime>")
+    @Order(2)
+    @DisplayName("Annotation @EnableStringTrimming has retention 'RUNTIME'")
     void enableStringTrimmingAnnotationHasRuntimeRetention() {
         Optional<Class<? extends Annotation>> annotation = findAnnotationInPackage("EnableStringTrimming");
         Optional<Retention> retention = annotation.map(a -> a.getAnnotation(Retention.class))
@@ -91,7 +68,7 @@ class TrimmingPostProcessorTest {
     }
 
     @Test
-    @Order(5)
+    @Order(3)
     @DisplayName("Annotation @EnableStringTrimming imports StringTrimmingConfiguration")
     void enableStringTrimmingAnnotationImportsCorrectConfig() {
         Optional<Class<? extends Annotation>> annotation = findAnnotationInPackage("EnableStringTrimming");
@@ -105,17 +82,23 @@ class TrimmingPostProcessorTest {
     }
 
     @Test
-    @Order(6)
-    @DisplayName("StringTrimmingConfiguration does not annotated by @Configuration spring annotation, it should be imported to " +
-            "config class by @EnableStringTrimming")
-    void stringTrimmingConfigurationAnnotatedAsConfiguration() {
+    @Order(4)
+    @DisplayName("StringTrimmingConfiguration is implemented")
+    void stringTrimmingConfiguration() {
         Optional<Class<?>> configClass = findClassInPackage("StringTrimmingConfiguration");
         assertTrue(configClass.isPresent());
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("StringTrimmingConfiguration is not annotated by @Configuration Spring annotation.")
+    void stringTrimmingConfigurationIsNotAnnotatedAsConfiguration() {
+        Optional<Class<?>> configClass = findClassInPackage("StringTrimmingConfiguration");
         assertNull(configClass.get().getDeclaredAnnotation(Configuration.class));
     }
 
     @Test
-    @Order(7)
+    @Order(6)
     @DisplayName("StringTrimmingConfiguration declares a TrimmedAnnotationBeanPostProcessor bean")
     void stringTrimmingConfigurationCreatesBeanOfTrimmedAnnotationPostProcessor() {
         Optional<Class<?>> configClass = findClassInPackage("StringTrimmingConfiguration");
@@ -131,7 +114,7 @@ class TrimmingPostProcessorTest {
     }
 
     @Test
-    @Order(8)
+    @Order(7)
     @DisplayName("Methods of StringTrimmingConfiguration that provides TrimmedAnnotationBeanPostProcessor instance annotated with" +
             " @Bean annotation")
     void trimmedAnnotationBeanPostProcessorMethodMarkedAsBean() {
@@ -145,7 +128,7 @@ class TrimmingPostProcessorTest {
     }
 
     @Test
-    @Order(9)
+    @Order(8)
     @DisplayName("TrimmedAnnotationBeanPostProcessor implements BeanPostProcessor interface")
     void trimmedAnnotationBeanPostProcessorImplementsBeanPostProcessor() {
         boolean isBeanPostProcessorPresent = Arrays.stream(TrimmedAnnotationBeanPostProcessor.class.getInterfaces())
@@ -155,7 +138,7 @@ class TrimmingPostProcessorTest {
     }
 
     @Test
-    @Order(10)
+    @Order(9)
     @DisplayName("TrimmedAnnotationBeanPostProcessor overrides postProcessAfterInitialization() method")
     void trimmedAnnotationBeanPostProcessorOverridesPostProcessAfterInitMethod() {
         List<String> methodNames = Arrays.stream(TrimmedAnnotationBeanPostProcessor.class.getDeclaredMethods())
@@ -165,7 +148,7 @@ class TrimmingPostProcessorTest {
     }
 
     @Test
-    @Order(11)
+    @Order(10)
     @DisplayName("Method postProcessBeforeInitialization() does not create a new proxy")
     @SneakyThrows
     void trimmedAnnotationBeanPostProcessorNotOverridesPostProcessAfterInitMethod() {
@@ -173,15 +156,27 @@ class TrimmingPostProcessorTest {
         TrimmedAnnotationBeanPostProcessor processor = constructor.newInstance();
         TestBean testBean = new TestBean(1L, "Bobobean");
 
-        Object beanAfterPostProcessing = processor.getClass().getDeclaredMethod(
-                        "postProcessBeforeInitialization", Object.class, String.class)
-                .invoke(processor, testBean, testBean.getClass().getName());
+        Method method = null;
+        try {
+            method = processor.getClass().getDeclaredMethod(
+                    "postProcessBeforeInitialization", Object.class, String.class);
+        } catch (NoSuchMethodException e) {
+
+            Optional<Class<?>> beanPostProcessor = Arrays.stream(processor.getClass().getInterfaces())
+                    .filter(i -> i.getSimpleName().equals("BeanPostProcessor")).findFirst();
+
+            if (beanPostProcessor.isPresent()) {
+                method = beanPostProcessor.get().getDeclaredMethod(
+                        "postProcessBeforeInitialization", Object.class, String.class);
+            }
+        }
+        Object beanAfterPostProcessing = method.invoke(processor, testBean, testBean.getClass().getName());
 
         assertEquals(beanAfterPostProcessing, testBean);
     }
 
     @Nested
-    @SpringJUnitConfig(classes = TrimmingEnabledConfig.class)
+    @SpringJUnitConfig(classes = {TrimmingEnabledConfig.class})
     class TrimmingEnabledTest {
 
         @Test
