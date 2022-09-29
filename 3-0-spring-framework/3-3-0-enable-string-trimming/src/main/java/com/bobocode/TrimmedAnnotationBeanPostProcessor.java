@@ -23,31 +23,30 @@ import org.springframework.util.StringUtils;
  * {@link Trimmed}. For example if there is a string " Java   " as an input parameter it has to be automatically trimmed to "Java"
  * if parameter is marked with {@link Trimmed} annotation.
  * <p>
- * <p>
  * Note! This bean is not marked as a {@link Component} to avoid automatic scanning, instead it should be created in
  * {@link StringTrimmingConfiguration} class which can be imported to a {@link Configuration} class by annotation
  * {@link EnableStringTrimming}
  */
 public class TrimmedAnnotationBeanPostProcessor implements BeanPostProcessor {
 
-    private final Map<String, Object> beansToBeProxied = new HashMap<>();
+    private final Map<String, Class<?>> beansToBeProxied = new HashMap<>();
     private final Map<String, MethodInterceptor[]> beanInterceptors = new HashMap<>();
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (containsParametersAnnotatedWithTrimmed(bean)) {
-            beansToBeProxied.put(beanName, bean);
+            beansToBeProxied.put(beanName, bean.getClass());
             beanInterceptors.put(beanName, new MethodInterceptor[]{provideTrimmingInterceptor()});
         }
-        return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
+        return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        Object toProxy = beansToBeProxied.get(beanName);
+        Class<?> toProxy = beansToBeProxied.get(beanName);
         if (toProxy != null) {
             Enhancer enhancer = new Enhancer();
-            enhancer.setSuperclass(toProxy.getClass());
+            enhancer.setSuperclass(toProxy);
             setInterceptorsIfNeeded(enhancer, bean, beanName);
             return enhancer.create();
         }
@@ -71,7 +70,7 @@ public class TrimmedAnnotationBeanPostProcessor implements BeanPostProcessor {
 
     private Object trimMarkedString(Object arg) {
         if (arg instanceof String string) {
-            return StringUtils.hasLength(string) ? string.trim() : arg;
+            return string.trim();
         }
         return arg;
     }
