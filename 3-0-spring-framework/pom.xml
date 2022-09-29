@@ -18,23 +18,29 @@
         <module>3-1-1-dispatcher-servlet-initializer</module>
         <module>3-0-2-view-resolver</module>
         <module>3-2-1-account-rest-api</module>
+        <module>3-3-0-enable-string-trimming</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>5.3.6</version>
+            <version>5.3.23</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.3.6</version>
+            <version>5.3.23</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.12.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.12</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
