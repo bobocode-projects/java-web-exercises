@@ -10,5 +10,4 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>3-3-0-enable-string-trimming</artifactId>
-    <packaging>war</packaging>
 </project>
