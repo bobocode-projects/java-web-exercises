@@ -13,11 +13,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.3.23</version>
-        </dependency>
-        <dependency>
             <groupId>com.bobocode</groupId>
             <artifactId>spring-framework-exercises-util</artifactId>
             <version>1.0-SNAPSHOT</version>
