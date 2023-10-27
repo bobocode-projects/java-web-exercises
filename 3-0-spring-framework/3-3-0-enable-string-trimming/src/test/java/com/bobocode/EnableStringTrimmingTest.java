@@ -2,6 +2,7 @@ package com.bobocode;
 
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -186,6 +187,34 @@ class EnableStringTrimmingTest {
             String actual = service.getTheTrimmedString(inputArgs);
 
             assertEquals(inputArgs.trim(), actual);
+        }
+
+        @Test
+        @DisplayName("TrimmedAnnotationBeanPostProcessor trims String input params marked with @Trimmed and ignore not annotated")
+        void trimmedAnnotationPostProcessorAnnotatedAndNotAnnotatedInputParams(@Autowired TrimmedService service) {
+            String inputArgs = " Simba Bimba  ";
+            String inputArgs2 = " Timon Lemon  ";
+            String actual = service.getTheTrimmedStringWithTwoArgs(inputArgs, inputArgs2);
+
+            assertEquals(inputArgs.trim().concat(inputArgs2), actual);
+        }
+
+        @Test
+        @DisplayName("TrimmedAnnotationBeanPostProcessor trims several String input params marked with @Trimmed and ignore not annotated")
+        void trimmedAnnotationPostProcessorSeveralAnnotatedAndNotAnnotatedInputParams(@Autowired TrimmedService service) {
+            String inputArgs = " Simba Bimba  ";
+            String inputArgs2 = " Timon Lemon  ";
+            String inputArgs3 = " Pumba Lumba  ";
+            String actual = service.getTheTrimmedStringWithThreeArgs(inputArgs, inputArgs2, inputArgs3);
+
+            assertEquals(inputArgs.trim().concat(inputArgs2).concat(inputArgs3.trim()), actual);
+        }
+
+        @Test
+        @DisplayName("TrimmedAnnotationBeanPostProcessor not trims non-String input params marked with @Trimmed")
+        void trimmedAnnotationPostProcessorAnnotatedNonStringInputParams(@Autowired TrimmedService service) {
+            Integer inputArg = 1;
+            assertDoesNotThrow(() -> service.getTheTrimmedInteger(inputArg), "Annotated parameter must ignore non-String types");
         }
 
         @Test
