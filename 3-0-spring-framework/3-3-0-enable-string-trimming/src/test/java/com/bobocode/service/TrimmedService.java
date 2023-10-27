@@ -10,6 +10,18 @@ public class TrimmedService {
         return string;
     }
 
+    public String getTheTrimmedInteger(@Trimmed Integer num) {
+        return num.toString();
+    }
+
+    public String getTheTrimmedStringWithTwoArgs(@Trimmed String stringOne, String stringTwo) {
+        return stringOne.concat(stringTwo);
+    }
+
+    public String getTheTrimmedStringWithThreeArgs(@Trimmed String stringOne, String stringTwo, @Trimmed String stringThree) {
+        return stringOne.concat(stringTwo).concat(stringThree);
+    }
+
     public String getNotTrimmedString(String string) {
         return string;
     }
