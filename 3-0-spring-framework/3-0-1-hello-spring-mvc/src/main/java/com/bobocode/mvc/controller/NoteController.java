@@ -1,7 +1,15 @@
 package com.bobocode.mvc.controller;
 
 import com.bobocode.mvc.data.Notes;
+import com.bobocode.mvc.model.Note;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
+import org.springframework.stereotype.Controller;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
 
 /**
  * {@link NoteController} is a typical controller that powers Spring MVC Notes application. This application provides
@@ -10,7 +18,7 @@ import lombok.RequiredArgsConstructor;
  * is already provided as a field of class {@link Notes}. The base URL is `/notes`.
  * <p>
  * This controller handles the HTTP GET request that should list all notes. In order to do that, it fetches the list
- * of notes, adds that list as an attribute to the {@link org.springframework.ui.Model}, and returns a corresponding view.
+ * of notes, adds that list as an attribute to the {@link Model}, and returns a corresponding view.
  * The view (which is Thymeleaf HTML template) expects to receive an attribute called `noteList`.
  * In classical Spring MVC, controller methods return a string value which stores a view name.
  * A {@link org.springframework.web.servlet.ViewResolver} is already configured to look for an HTML template in
@@ -27,9 +35,22 @@ import lombok.RequiredArgsConstructor;
  * the same controller will look like {@link com.bobocode.mvc.api.NoteRestController}
  */
 @RequiredArgsConstructor
+@Controller
+@RequestMapping("/notes")
 public class NoteController {
     private final Notes notes;
 
-    // TODO: implement controller methods according to the javadoc and verify your impl using NoteControllerTest
+
+    @GetMapping()
+    public String getNotes(Model model){
+        model.addAttribute("noteList", notes.getAll());
+        return "notes";
+    }
+
+    @PostMapping
+    public String addNote(Note note){
+        notes.add(note);
+       return  "redirect:/notes";
+    }
 
 }

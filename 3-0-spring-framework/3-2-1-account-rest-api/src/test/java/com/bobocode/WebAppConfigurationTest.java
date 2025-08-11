@@ -61,7 +61,7 @@ class WebAppConfigurationTest {
     }
 
     private List<Class> getFilteredClasses(Filter[] filters) {
-        return Stream.of(filters).flatMap(filter -> Stream.of(filter.value())).collect(Collectors.toList());
+        return Stream.of(filters).flatMap(filter -> Stream.of(filter.classes())).collect(Collectors.toList());
     }
 
     @Test

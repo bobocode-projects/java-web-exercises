@@ -1,6 +1,24 @@
 package com.bobocode.web.controller;
 
 import com.bobocode.dao.AccountDao;
+import com.bobocode.dao.impl.InMemoryAccountDao;
+import com.bobocode.model.Account;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 /**
  * <p>
@@ -16,6 +34,48 @@ import com.bobocode.dao.AccountDao;
  * todo: 7. Implement method that handles DELETE request with id as path variable removes an account by id
  * todo:    Configure HTTP response status code 204 - NO CONTENT
  */
-public class AccountRestController {
 
+@RestController()
+@RequestMapping("/accounts")
+public class AccountRestController implements AccountDao {
+    protected AccountDao accountDao = new InMemoryAccountDao();
+
+
+    public AccountRestController(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+    @Override
+    @GetMapping
+    public List<Account> findAll( ) {
+        return accountDao.findAll();
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    public Account findById(@PathVariable long id) {
+        Account account = accountDao.findById(id);
+        ResponseEntity.status(OK).body(account);
+        return account;
+    }
+
+    @Override
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Account save(@RequestBody Account account) {
+        return accountDao.save(account);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remove(Account account) {
+        accountDao.remove(account);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody Account account) {
+        accountDao.save(account);
+    }
 }
