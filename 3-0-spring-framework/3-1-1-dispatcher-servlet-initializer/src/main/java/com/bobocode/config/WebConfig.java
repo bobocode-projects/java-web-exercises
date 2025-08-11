@@ -14,5 +14,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * todo: enable component scanning for package "web"
  */
 
+@Configuration
+@ComponentScan(basePackages = "com.bobocode.web")
+@EnableWebMvc
 public class WebConfig {
 }

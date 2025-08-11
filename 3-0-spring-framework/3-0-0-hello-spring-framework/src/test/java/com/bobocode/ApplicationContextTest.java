@@ -32,7 +32,6 @@ class ApplicationContextTest {
     @DisplayName("DataGenerator has only one bean")
     void dataGeneratorHasOnlyOneBean() {
         Map<String, TestDataGenerator> testDataGeneratorMap = applicationContext.getBeansOfType(TestDataGenerator.class);
-
         assertThat(testDataGeneratorMap.size()).isEqualTo(1);
     }
 

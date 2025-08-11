@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -170,6 +172,6 @@ class WebAppConfigurationTest {
     }
 
     private List<Class> getFilteredClasses(Filter[] filters) {
-        return Stream.of(filters).flatMap(filter -> Stream.of(filter.value())).collect(Collectors.toList());
+        return Stream.of(filters).flatMap(filter -> Stream.of(filter.classes())).collect(Collectors.toList());
     }
 }

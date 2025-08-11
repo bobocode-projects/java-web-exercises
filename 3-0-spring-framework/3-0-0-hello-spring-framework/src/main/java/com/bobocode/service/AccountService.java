@@ -2,6 +2,8 @@ package com.bobocode.service;
 
 import com.bobocode.dao.AccountDao;
 import com.bobocode.model.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import static java.util.Comparator.comparing;
 
@@ -12,6 +14,7 @@ import static java.util.Comparator.comparing;
  * Since it's a service that should be added to the application context, it is marked as Spring service. It order to get
  * {@link AccountDao} instances, it uses implicit constructor-based injection.
  */
+@Service
 public class AccountService {
     private final AccountDao accountDao;
 
