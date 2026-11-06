@@ -1,6 +1,22 @@
 package com.bobocode.web.controller;
 
 import com.bobocode.dao.AccountDao;
+import com.bobocode.model.Account;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,6 +32,44 @@ import com.bobocode.dao.AccountDao;
  * todo: 7. Implement method that handles DELETE request with id as path variable removes an account by id
  * todo:    Configure HTTP response status code 204 - NO CONTENT
  */
+@RestController
+@RequestMapping("/accounts")
+@RequiredArgsConstructor
 public class AccountRestController {
+    private final AccountDao accountDao;
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        Account account = accountDao.findById(id);
+        accountDao.remove(account);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Account updateAccount(@PathVariable Long id, @RequestBody Account account) {
+        if (!account.getId().equals(id)) {
+            throw new IllegalStateException();
+        }
+        return accountDao.save(account);
+    }
+
+    @GetMapping
+    public List<Account> findAll() {
+        return accountDao.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Account findById(@PathVariable Long id) {
+        return accountDao.findById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Account save(@RequestBody Account account) {
+        return accountDao.save(account);
+    }
 
 }
+
