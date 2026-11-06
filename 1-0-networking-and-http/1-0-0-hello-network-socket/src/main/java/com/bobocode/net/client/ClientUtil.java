@@ -24,7 +24,7 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static Socket openSocket(String host, int port) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        return new Socket(host, port);
     }
 
     /**
@@ -62,6 +62,8 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static void writeToSocket(String message, Socket socket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        writer.write(message);
+        writer.flush();
     }
 }

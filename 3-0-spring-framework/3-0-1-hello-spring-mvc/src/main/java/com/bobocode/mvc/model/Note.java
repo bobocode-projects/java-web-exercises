@@ -1,6 +1,7 @@
 package com.bobocode.mvc.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@EqualsAndHashCode
 @NoArgsConstructor
 public class Note {
     private UUID id;
